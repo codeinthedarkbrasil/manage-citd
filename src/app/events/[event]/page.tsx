@@ -44,11 +44,11 @@ export default function Event({ params }: EventProps) {
   const participants = query.data ?? []
   console.count('Event rendered')
   console.log('participants.length:', participants.length)
-  console.log('selected participants:', participants.filter(p => p.selected))
+  console.log('selected participants:', participants.filter(p => p.gonnaPlay))
 
   const handleGenerateGroups = () => {
     const selected = new Set<string>()
-    const checkedParticipants = participants.filter(p => p.checked)
+    const checkedParticipants = participants.filter(p => p.wannaPlay)
     if (checkedParticipants.length < 16) {
       console.log('Não tem a quantidade mínima selecionada')
       return
@@ -57,7 +57,7 @@ export default function Event({ params }: EventProps) {
     while (selected.size < 16) {
       const rnd = getRandomInteger(participants.length - 1)
       const participant = participants[rnd]
-      if (participant.checked) {
+      if (participant.wannaPlay) {
         selected.add(participants[rnd].id)
       }
     }

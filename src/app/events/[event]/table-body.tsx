@@ -11,12 +11,12 @@ export function TableBody({ event, participants, onCheckParticipant }: TableBody
   return (
     <tbody>
       {participants.map(participant => (
-        <tr key={participant.id} className={participant.selected ? 'bg-red-500' : ''}>
+        <tr key={participant.id} className={participant.gonnaPlay ? 'bg-red-500' : ''}>
           <td>
             <input
               type='checkbox'
               className='w-8 h-8'
-              defaultChecked={participant.checked}
+              defaultChecked={participant.wannaPlay}
               onClick={() => onCheckParticipant(participant.id)}
             />
           </td>
