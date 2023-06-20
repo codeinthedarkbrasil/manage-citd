@@ -3,31 +3,38 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Event {
-  id   String @id @default(uuid())
-  name String
-  play Play[]
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  play      Play[]
 }
 
 model User {
-  id     String @id @default(uuid())
-  name   String
-  email  String
-  github String
-  play   Play[]
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  github    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  play      Play[]
 }
 
 model Play {
   userId    String
   eventId   String
-  wannaPlay Boolean @default(false)
-  gonnaPlay Boolean @default(false)
-  user      User    @relation(fields: [userId], references: [id])
-  event     Event   @relation(fields: [eventId], references: [id])
+  wannaPlay Boolean  @default(false)
+  gonnaPlay Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id])
 
   @@id([userId, eventId])
 }
