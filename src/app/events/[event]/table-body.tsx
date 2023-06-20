@@ -12,7 +12,14 @@ export function TableBody({ event, participants, onCheckParticipant }: TableBody
     <tbody>
       {participants.map(participant => (
         <tr key={participant.id} className={participant.selected ? 'bg-red-500' : ''}>
-          <td><input type='checkbox' defaultChecked={participant.checked} onClick={() => onCheckParticipant(participant.id)} /></td>
+          <td>
+            <input
+              type='checkbox'
+              className='w-8 h-8'
+              defaultChecked={participant.checked}
+              onClick={() => onCheckParticipant(participant.id)}
+            />
+          </td>
           <td>{participant.name}</td>
           <td>{participant.email}</td>
           <td><a href={`https://github.com/${participant.github}`} target='_blank'>@{participant.github}</a></td>
