@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col justify-between">
+    <div className="font-sans flex min-h-screen flex-col justify-between text-neutral-900">
       Home
-    </main>
+    </div>
   )
 }
