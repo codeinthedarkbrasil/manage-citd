@@ -1,5 +1,3 @@
-import './globals.css'
-import { PropsWithChildren } from '@/types/react'
 import '@/styles/globals.css'
 import Image from 'next/image'
 import { LayoutDashboard, Medal } from "lucide-react"
@@ -15,7 +13,6 @@ export const metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="pt-br">
-      <body className='text-2xl'>{children}</body>
       <head>
         <link rel="icon" href="https://fav.farm/⚡" />
       </head>

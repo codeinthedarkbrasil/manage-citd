@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 type SidebarLinkProps = PropsWithChildren<{ href: string }>
 
 export const Sidebar = ({ children }: PropsWithChildren) => (
-  <aside className="flex flex-col pt-2 items-center w-sidebar border border-r-neutral-200 h-full">
+  <aside className="flex flex-col pt-2 items-center w-sidebar border-r border-r-neutral-200 h-full">
     {children}
   </aside>
 )
