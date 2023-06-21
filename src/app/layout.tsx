@@ -27,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 </SidebarLink>
               </SidebarItem>
               <SidebarItem>
-                <SidebarLink href="/participants">
+                <SidebarLink href="/events/2023/participants">
                   <Medal width={22} height={22} className="stroke-current-color" />
                 </SidebarLink>
               </SidebarItem>

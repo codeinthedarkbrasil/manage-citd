@@ -2,6 +2,7 @@
 CREATE TABLE "Event" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -34,6 +35,9 @@ CREATE TABLE "Play" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Event_name_key" ON "Event"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Event_slug_key" ON "Event"("slug");
 
 -- AddForeignKey
 ALTER TABLE "Play" ADD CONSTRAINT "Play_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
