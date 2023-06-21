@@ -3,10 +3,10 @@ import Link from 'next/link'
 export default function Events() {
   return (
     <main>
-      <h1>Eventos</h1>
-      <button>Novo Evento</button>
+      <h1 className="font-sans text-neutral-900">Eventos</h1>
+      <button className="font-sans text-primary-100">Novo Evento</button>
 
-      <ul>
+      <ul className="mt-3">
         <li>
           <EventItem
             link='/events/2022'
@@ -34,7 +34,7 @@ type EventItemProps = {
 
 function EventItem({ link, title, description }: EventItemProps) {
   return (
-    <Link href={link}>
+    <Link className="font-sans text-neutral-900" href={link}>
       <h2>{title}</h2>
       <p>{description}</p>
     </Link>
