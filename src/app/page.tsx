@@ -1,5 +1,5 @@
 import { Card, CardText, CardTitle } from "@/components";
-import { Button } from "@/components/button/Button";
+import { Button } from "@/components";
 
 export default function Home() {
   return (
@@ -27,7 +27,6 @@ export default function Home() {
             </CardText>
           </div>
         </Card>
-
         <Card>
           <div className="py-3 px-2">
             <CardTitle>Code in The Dark 2022</CardTitle>
