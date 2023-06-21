@@ -36,6 +36,27 @@ module.exports = {
         100: "#A14445"
       }
     },
+    fontSize: {
+      "body-xs": "1.2rem",
+      "body-sm": "1.4rem",
+      "body-md": "2.0rem",
+      "body-lg": "2.4rem",
+      "title-sm": "2.0rem",
+      "title-lg": "4.0rem"
+    },
+    zIndex: {
+      hidden: -1,
+      base: 5,
+      above: 10,
+      aboveAll: 15
+    },
+    screens: {
+      xs: "0px",
+      sm: "475px",
+      md: "920px",
+      lg: "1280px",
+      xl: "1920px"
+    },
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)"]
@@ -44,13 +65,9 @@ module.exports = {
         sidebar: "52px",
       },
       maxWidth: {
-        wrapper: "1440px",
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        wrapper: "924px",
       },
     },
   },
+  plugins: [require("tailwindcss-animate")],
 }
