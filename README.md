@@ -1,3 +1,21 @@
-# Code in the Dark - Brazil
+# Backoffice —— Code in the Dark
+> Backoffice application for Code in the Dark ⚡
 
-- [Layout Figma](https://www.figma.com/file/PsD124B5jvDdxyYCqxIbys/Code-in-The-Dark---Back-Office?type=design&t=FQNPMNk5uC2gSuxr-0)
+## Setup ⚙️
+Installing deps:
+```sh
+yarn
+```
+Running the dev server:
+```
+yarn next
+```
+
+## Contributing 📖
+Follow the our [guide](./CONTRIBUTING.md). 
+
+## Design 🎨
+[Layout Figma ](https://www.figma.com/file/PsD124B5jvDdxyYCqxIbys/Code-in-The-Dark---Back-Office?type=design&t=FQNPMNk5uC2gSuxr-0)
+
+## License ⚖️
+MIT
