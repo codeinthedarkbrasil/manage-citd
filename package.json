@@ -42,7 +42,7 @@
     "prisma": "4.16.0"
   },
   "lint-staged": {
-    "*.lua": [
+    "src/**/*.{ts,tsx}": [
       "yarn prettier",
       "yarn lint"
     ]
