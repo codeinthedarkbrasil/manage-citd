@@ -10,11 +10,7 @@ If you taking the time to mention a problem, even a seemingly minor one, it is g
 
 ## Fixing bugs
 
-1. [Fork this repository](https://github.com/codeinthedarkbrasil/manage-citd/fork) and then clone it locally:
-
-  ```bash
-  git clone https://github.com/kennethormandy/default
-  ```
+1. [Fork this repository](https://github.com/codeinthedarkbrasil/manage-citd/fork) and then clone it locally.
 
 2. Create a topic branch for your changes:
 
@@ -24,13 +20,13 @@ If you taking the time to mention a problem, even a seemingly minor one, it is g
 3. Commit a failing test for the bug:
 
   ```bash
-  git commit -am "fix: Adds a failing test to demonstrate that thing"
+  git commit -am "fix: adds a failing test to demonstrate that thing"
   ```
 
 4. Commit a fix that makes the test pass:
 
   ```bash
-  git commit -am "fix: Adds a fix for that thing!"
+  git commit -am "fix: adds a fix for that thing!"
   ```
 
 6. If everything looks good, push to your fork:
