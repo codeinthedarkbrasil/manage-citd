@@ -1,16 +1,16 @@
-import { RoundsList } from "@/components/rounds-list";
-import { EventProps } from "../page";
+import { EventProps } from "@/app/events/[event]/page";
 import { Round } from "@/shared/types/round";
+import { ParticipantsTitle } from "@/components/participants-title";
+import { RoundsList } from "@/components";
+import { ParticipantsSubTitle } from "@/components/participants-sub-title";
 
 export default function Participants({ params }: EventProps) {
   return (
     <section className="font-sans">
-      <p className="text-neutral-500 text-xs underline leading-normal">
+      <ParticipantsSubTitle>
         Code in The Dark {params.event}
-      </p>
-      <h2 className="text-2xl text-neutral-900 leading-normal font-bold mt-0.5">
-        Gerenciar Chave
-      </h2>
+      </ParticipantsSubTitle>
+      <ParticipantsTitle>Gerenciar Chave</ParticipantsTitle>
       <RoundsList rounds={rounds} />
     </section>
   );
