@@ -12,6 +12,7 @@ yarn next
 ```
 
 ## Contributing 📖
+Follow the our [guide](./CONTRIBUTING.md). 
 
 ## Design 🎨
 [Layout Figma ](https://www.figma.com/file/PsD124B5jvDdxyYCqxIbys/Code-in-The-Dark---Back-Office?type=design&t=FQNPMNk5uC2gSuxr-0)
