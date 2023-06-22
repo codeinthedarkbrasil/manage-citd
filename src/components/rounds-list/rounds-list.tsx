@@ -1,9 +1,12 @@
-import { Round } from "@/app/events/[event]/participants/page";
+import { Round } from "@/shared/types/round";
 import { ParticipantsList } from "../participants-list";
+import { ParticipantItem } from "../participant-item";
+import { ParticipantImage } from "../participant-image";
+import { ParticipantName } from "../participant-name";
 
-interface RoundsListProps {
+type RoundsListProps = {
   rounds: Round[];
-}
+};
 
 export function RoundsList({ rounds }: RoundsListProps) {
   return (
@@ -14,7 +17,18 @@ export function RoundsList({ rounds }: RoundsListProps) {
             <span className="text-neutral-500 text-sm font-semibold leading-tight block">
               {index + 1}º Round
             </span>
-            <ParticipantsList participants={round.participants} />
+            <ParticipantsList>
+              {round.participants.map((participant, index) => (
+                <ParticipantItem>
+                  <ParticipantImage
+                    src={participant.avatarUrl}
+                    alt={`${participant.name} photo`}
+                    hasLine={index !== round.participants.length - 1}
+                  />
+                  <ParticipantName>{participant.name}</ParticipantName>
+                </ParticipantItem>
+              ))}
+            </ParticipantsList>
           </div>
         ))}
       </div>
