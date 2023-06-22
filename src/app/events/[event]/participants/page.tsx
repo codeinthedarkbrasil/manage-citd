@@ -1,5 +1,6 @@
 import { RoundsList } from "@/components/rounds-list";
 import { EventProps } from "../page";
+import { Round } from "@/shared/types/round";
 
 export default function Participants({ params }: EventProps) {
   return (
@@ -13,14 +14,6 @@ export default function Participants({ params }: EventProps) {
       <RoundsList rounds={rounds} />
     </section>
   );
-}
-export interface Participant {
-  id: number;
-  avatarUrl: string;
-  name: string;
-}
-export interface Round {
-  participants: Participant[];
 }
 
 const rounds: Round[] = [
