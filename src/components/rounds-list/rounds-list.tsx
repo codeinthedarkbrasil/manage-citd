@@ -10,7 +10,7 @@ export function RoundsList({ rounds }: RoundsListProps) {
     <div className="inline-block">
       <div className="inline-flex flex-wrap md:gap-x-8 md:gap-y-10 max-w-[1000px]">
         {rounds.map((round, index) => (
-          <div className="mt-4 md:mt-0">
+          <div className="mt-4 md:mt-0" key={index}>
             <span className="text-neutral-500 text-sm font-semibold leading-tight block">
               {index + 1}º Round
             </span>
