@@ -24,7 +24,7 @@
     "lucide-react": "0.246.0",
     "next": "13.4.5",
     "postcss": "8.4.24",
-    "prettier": "^2.8.8",
+    "prettier": "2.8.8",
     "random-js": "2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
