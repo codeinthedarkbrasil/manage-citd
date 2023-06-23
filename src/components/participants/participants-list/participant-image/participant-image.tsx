@@ -3,17 +3,21 @@ import Image from "next/image"
 type ParticipantImageProps = {
   src: string
   alt: string
-  hasLine: boolean
+  shouldHasLine: boolean
 }
 
 const afterClasses =
   " after:content-[''] after:h-[1px] after:width-1/2 after:right-1 after:w-full after:bg-primary-100 after:absolute after:top-1/2 relative after:translate-x-1/2 after:left-1/2"
 
-export function ParticipantImage({ src, alt, hasLine }: ParticipantImageProps) {
+export function ParticipantImage({
+  src,
+  alt,
+  shouldHasLine,
+}: ParticipantImageProps) {
   return (
     <div
       className={`w-[69px] h-[69px] border-2 border-primary-100 rounded-full overflow-hidden ${
-        hasLine && afterClasses
+        shouldHasLine && afterClasses
       }`}
       style={{
         borderRadius: "50%",
