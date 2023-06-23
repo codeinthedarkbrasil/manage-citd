@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "seed": "tsx prisma/seeds/participants.ts",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -39,7 +40,8 @@
     "@tanstack/eslint-plugin-query": "4.29.9",
     "husky": "8.0.3",
     "lint-staged": "13.2.2",
-    "prisma": "4.16.0"
+    "prisma": "4.16.0",
+    "tsx": "3.12.7"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
