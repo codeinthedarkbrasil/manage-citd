@@ -1,76 +1,76 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { TableBody } from "./table-body";
+import Link from "next/link"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { TableBody } from "./table-body"
 import {
   getParticipants,
   setSelectedParticipants,
   checkParticipant,
-} from "./participants/data-participants";
-import { getRandomInteger } from "./get-random-integer";
+} from "./participants/data-participants"
+import { getRandomInteger } from "./get-random-integer"
 
 export type EventProps = {
   params: {
-    event: string;
-  };
-};
+    event: string
+  }
+}
 
 const generateGroups = async (ids: Set<string>) => {
-  return setSelectedParticipants(Array.from(ids));
-};
+  return setSelectedParticipants(Array.from(ids))
+}
 
 export default function Event({ params }: EventProps) {
-  const { event } = params;
+  const { event } = params
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const query = useQuery({
     queryKey: ["participants", { event }],
     queryFn: () => getParticipants(event),
-  });
+  })
 
   const generateGroupsMutation = useMutation({
     mutationFn: generateGroups,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["participants", { event }] });
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
     },
-  });
+  })
 
   const checkParticipantMutation = useMutation({
     mutationFn: checkParticipant,
-  });
+  })
 
   const handleCheckParticipant = (id: string) => {
-    checkParticipantMutation.mutate(id);
-  };
+    checkParticipantMutation.mutate(id)
+  }
 
-  const participants = query.data ?? [];
-  console.count("Event rendered");
-  console.log("participants.length:", participants.length);
+  const participants = query.data ?? []
+  console.count("Event rendered")
+  console.log("participants.length:", participants.length)
   console.log(
     "selected participants:",
-    participants.filter((p) => p.gonnaPlay)
-  );
+    participants.filter((p) => p.gonnaPlay),
+  )
 
   const handleGenerateGroups = () => {
-    const selected = new Set<string>();
-    const checkedParticipants = participants.filter((p) => p.wannaPlay);
+    const selected = new Set<string>()
+    const checkedParticipants = participants.filter((p) => p.wannaPlay)
     if (checkedParticipants.length < 16) {
-      console.log("Não tem a quantidade mínima selecionada");
-      return;
+      console.log("Não tem a quantidade mínima selecionada")
+      return
     }
 
     while (selected.size < 16) {
-      const rnd = getRandomInteger(participants.length - 1);
-      const participant = participants[rnd];
+      const rnd = getRandomInteger(participants.length - 1)
+      const participant = participants[rnd]
       if (participant.wannaPlay) {
-        selected.add(participants[rnd].id);
+        selected.add(participants[rnd].id)
       }
     }
-    console.log("all selected:", selected);
-    generateGroupsMutation.mutate(selected);
-  };
+    console.log("all selected:", selected)
+    generateGroupsMutation.mutate(selected)
+  }
 
   return (
     <main>
@@ -87,9 +87,6 @@ export default function Event({ params }: EventProps) {
           </li>
           <li>
             <button onClick={handleGenerateGroups}>Gerar chaves</button>
-          </li>
-          <li>
-            <Link href={`/events/${event}/participants/`}>Participants</Link>
           </li>
         </ul>
       </nav>
@@ -111,5 +108,5 @@ export default function Event({ params }: EventProps) {
         />
       </table>
     </main>
-  );
+  )
 }
