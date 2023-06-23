@@ -1,19 +1,17 @@
-import { EventProps } from "@/app/events/[event]/page";
-import { Round } from "@/shared/types/round";
-import { ParticipantsTitle } from "@/components/participants-title";
-import { RoundsList } from "@/components";
-import { ParticipantsSubTitle } from "@/components/participants-sub-title";
+import { EventProps } from "@/app/events/[event]/page"
+import { RoundsList } from "@/components/participants/rounds-list"
+import { SubTitle } from "@/components/participants/sub-title"
+import { Title } from "@/components/participants/title"
+import { Round } from "@/shared/types/round"
 
 export default function Participants({ params }: EventProps) {
   return (
     <section className="font-sans">
-      <ParticipantsSubTitle>
-        Code in The Dark {params.event}
-      </ParticipantsSubTitle>
-      <ParticipantsTitle>Gerenciar Chave</ParticipantsTitle>
+      <SubTitle>Code in The Dark {params.event}</SubTitle>
+      <Title>Gerenciar Chave</Title>
       <RoundsList rounds={rounds} />
     </section>
-  );
+  )
 }
 
 const rounds: Round[] = [
@@ -113,4 +111,4 @@ const rounds: Round[] = [
       },
     ],
   },
-];
+]

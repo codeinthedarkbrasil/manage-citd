@@ -1,27 +1,26 @@
-import { Round } from "@/shared/types/round";
+import { Round } from "@/shared/types/round"
 import {
   ParticipantsList,
   ParticipantItem,
   ParticipantImage,
   ParticipantName,
-} from "@/components";
+  Name,
+} from "@/components"
 
 type RoundsListProps = {
-  rounds: Round[];
-};
+  rounds: Round[]
+}
 
 export function RoundsList({ rounds }: RoundsListProps) {
   return (
     <div className="inline-block">
-      <div className="inline-flex flex-wrap md:gap-x-8 md:gap-y-10 max-w-[1000px]">
+      <div className="inline-grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
         {rounds.map((round, index) => (
           <div className="mt-8 md:mt-0" key={index}>
-            <span className="text-neutral-500 text-sm font-semibold leading-tight block">
-              {index + 1}º Round
-            </span>
+            <Name>{index + 1}º Round</Name>
             <ParticipantsList>
               {round.participants.map((participant, index) => (
-                <ParticipantItem>
+                <ParticipantItem key={participant.id}>
                   <ParticipantImage
                     src={participant.avatarUrl}
                     alt={`${participant.name} photo`}
@@ -36,5 +35,5 @@ export function RoundsList({ rounds }: RoundsListProps) {
       </div>
       <div className="m-auto w-[180px] h-[2px] bg-neutral-900 bg-opacity-[8%] my-10"></div>
     </div>
-  );
+  )
 }
