@@ -1,11 +1,11 @@
 import { Round } from "@/shared/types/round"
 import {
-  ParticipantsList,
-  ParticipantItem,
   ParticipantImage,
+  ParticipantItem,
   ParticipantName,
-  Name,
-} from "@/components"
+  ParticipantsList,
+} from "@/components/participants"
+import { Name } from "@/components/rounds-list"
 
 type RoundsListProps = {
   rounds: Round[]

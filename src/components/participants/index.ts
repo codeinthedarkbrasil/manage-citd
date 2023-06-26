@@ -1,4 +1,4 @@
 export * from "./participants-list"
-export * from "./rounds-list"
-export * from "./sub-title"
-export * from "./title"
+export * from "./participant-item"
+export * from "./participant-image"
+export * from "./participant-name"
