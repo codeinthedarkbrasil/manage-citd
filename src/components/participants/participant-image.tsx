@@ -3,7 +3,7 @@ import Image from "next/image"
 type ParticipantImageProps = {
   src: string
   alt: string
-  shouldHasLine: boolean
+  lined: boolean
 }
 
 const afterClasses =
@@ -12,10 +12,10 @@ const afterClasses =
 export function ParticipantImage({
   src,
   alt,
-  shouldHasLine,
+  lined,
 }: ParticipantImageProps) {
   return (
-    <div className={`w-[69px] h-[69px]  ${shouldHasLine && afterClasses}`}>
+    <div className={`w-[69px] h-[69px]  ${lined && afterClasses}`}>
       <div className="overflow-hidden border-2 border-primary-100 rounded-full">
         <Image
           src={src}

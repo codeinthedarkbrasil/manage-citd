@@ -24,7 +24,7 @@ export function RoundsList({ rounds }: RoundsListProps) {
                   <ParticipantImage
                     src={participant.avatarUrl}
                     alt={`${participant.name} photo`}
-                    shouldHasLine={index !== round.participants.length - 1}
+                    lined={index !== round.participants.length - 1}
                   />
                   <ParticipantName>{participant.name}</ParticipantName>
                 </ParticipantItem>
