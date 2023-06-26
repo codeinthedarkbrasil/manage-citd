@@ -1,6 +1,13 @@
-import { EventProps } from "@/app/events/[event]/page"
-import { RoundsList } from "@/components"
-import { Round } from "@/shared/types"
+import {
+  ParticipantImage,
+  ParticipantItem,
+  ParticipantName,
+  ParticipantsList,
+  RoundItem,
+  RoundTitle,
+  RoundsList,
+} from "@/components"
+import { EventProps, Round } from "@/shared/types"
 
 export default function Participants({ params }: EventProps) {
   return (
@@ -11,7 +18,25 @@ export default function Participants({ params }: EventProps) {
       <h2 className="text-title-sm text-neutral-900 leading-normal font-bold mt-1">
         Gerenciar Chave
       </h2>
-      <RoundsList rounds={rounds} />
+      <RoundsList>
+        {rounds.map((round, index) => (
+          <RoundItem key={index}>
+            <RoundTitle>{index + 1}º Round</RoundTitle>
+            <ParticipantsList>
+              {round.participants.map((participant, index) => (
+                <ParticipantItem key={participant.id}>
+                  <ParticipantImage
+                    src={participant.avatarUrl}
+                    alt={`${participant.name} photo`}
+                    lined={index !== round.participants.length - 1}
+                  />
+                  <ParticipantName>{participant.name}</ParticipantName>
+                </ParticipantItem>
+              ))}
+            </ParticipantsList>
+          </RoundItem>
+        ))}
+      </RoundsList>
     </section>
   )
 }

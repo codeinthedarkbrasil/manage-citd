@@ -1,5 +1,4 @@
 export * from "./sidebar"
-export * from "./participants"
 export * from "./rounds-list"
 export * from "./sidebar"
 export * from "./card"
