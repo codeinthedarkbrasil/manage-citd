@@ -14,7 +14,6 @@ export function ParticipantImage({
   alt,
   shouldHasLine,
 }: ParticipantImageProps) {
-  console.log("should has line", shouldHasLine)
   return (
     <div className={`w-[69px] h-[69px]  ${shouldHasLine && afterClasses}`}>
       <div className="overflow-hidden border-2 border-primary-100 rounded-full">
