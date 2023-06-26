@@ -1,5 +1,5 @@
 import { EventProps } from "@/app/events/[event]/page"
-import { RoundsList, SubTitle, Title } from "@/components"
+import { RoundsList } from "@/components"
 import { Round } from "@/shared/types"
 
 export default function Participants({ params }: EventProps) {
