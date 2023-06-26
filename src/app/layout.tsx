@@ -1,13 +1,13 @@
-import '@/styles/globals.css'
-import Image from 'next/image'
+import "@/styles/globals.css"
+import Image from "next/image"
 import { LayoutDashboard, Medal } from "lucide-react"
-import { PropsWithChildren } from 'react'
-import { Sidebar, SidebarItem, SidebarLink, SidebarList } from '@/components'
-import { sora } from '@/styles'
+import { PropsWithChildren } from "react"
+import { Sidebar, SidebarItem, SidebarLink, SidebarList } from "@/components"
+import { sora } from "@/styles"
 
 export const metadata = {
-  title: 'Code in the Dark',
-  description: '',
+  title: "Code in the Dark",
+  description: "",
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -22,21 +22,27 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Image src="logo.svg" alt="CTD Logo" width={32} height={32} />
             <SidebarList>
               <SidebarItem>
-                <SidebarLink href="/">
-                  <LayoutDashboard width={22} height={22} className="stroke-current-color" />
+                <SidebarLink href="/events">
+                  <LayoutDashboard
+                    width={22}
+                    height={22}
+                    className="stroke-current-color"
+                  />
                 </SidebarLink>
               </SidebarItem>
               <SidebarItem>
                 <SidebarLink href="/events/2023/participants">
-                  <Medal width={22} height={22} className="stroke-current-color" />
+                  <Medal
+                    width={22}
+                    height={22}
+                    className="stroke-current-color"
+                  />
                 </SidebarLink>
               </SidebarItem>
             </SidebarList>
           </Sidebar>
           <main className="pt-8 h-full w-full flex justify-center">
-            <div className="max-w-wrapper w-full">
-              {children}
-            </div>
+            <div className="max-w-wrapper w-full">{children}</div>
           </main>
         </div>
       </body>
