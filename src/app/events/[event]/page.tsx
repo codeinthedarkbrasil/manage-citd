@@ -1,10 +1,14 @@
-'use client'
+"use client"
 
-import Link from 'next/link'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { TableBody } from './table-body'
-import { getParticipants, setSelectedParticipants, checkParticipant } from './participants/data-participants'
-import { getRandomInteger } from './get-random-integer'
+import Link from "next/link"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { TableBody } from "./table-body"
+import {
+  getParticipants,
+  setSelectedParticipants,
+  checkParticipant,
+} from "./participants/data-participants"
+import { getRandomInteger } from "./get-random-integer"
 
 type EventProps = {
   params: {
@@ -12,8 +16,12 @@ type EventProps = {
   }
 }
 
-const generateGroups = async (ids: Set<string>) => {
-  return setSelectedParticipants(Array.from(ids))
+type GenerateGroupsInput = {
+  event: string
+  ids: Set<string>
+}
+const generateGroups = async ({ event, ids }: GenerateGroupsInput) => {
+  return setSelectedParticipants({ event, ids: Array.from(ids) })
 }
 
 export default function Event({ params }: EventProps) {
@@ -22,14 +30,14 @@ export default function Event({ params }: EventProps) {
   const queryClient = useQueryClient()
 
   const query = useQuery({
-    queryKey: ['participants', { event }],
+    queryKey: ["participants", { event }],
     queryFn: () => getParticipants(event),
   })
 
   const generateGroupsMutation = useMutation({
     mutationFn: generateGroups,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['participants', { event }] })
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
     },
   })
 
@@ -42,15 +50,18 @@ export default function Event({ params }: EventProps) {
   }
 
   const participants = query.data ?? []
-  console.count('Event rendered')
-  console.log('participants.length:', participants.length)
-  console.log('selected participants:', participants.filter(p => p.gonnaPlay))
+  console.count("Event rendered")
+  console.log("participants.length:", participants.length)
+  console.log(
+    "selected participants:",
+    participants.filter((p) => p.gonnaPlay),
+  )
 
   const handleGenerateGroups = () => {
     const selected = new Set<string>()
-    const checkedParticipants = participants.filter(p => p.wannaPlay)
+    const checkedParticipants = participants.filter((p) => p.wannaPlay)
     if (checkedParticipants.length < 16) {
-      console.log('Não tem a quantidade mínima selecionada')
+      console.log("Não tem a quantidade mínima selecionada")
       return
     }
 
@@ -61,8 +72,8 @@ export default function Event({ params }: EventProps) {
         selected.add(participants[rnd].id)
       }
     }
-    console.log('all selected:', selected)
-    generateGroupsMutation.mutate(selected)
+    console.log("all selected:", selected)
+    generateGroupsMutation.mutate({ event, ids: selected })
   }
 
   return (
@@ -74,7 +85,9 @@ export default function Event({ params }: EventProps) {
             <button>Importar CSV</button>
           </li>
           <li>
-            <Link href={`/events/${event}/participants/new`}>Novo Participante</Link>
+            <Link href={`/events/${event}/participants/new`}>
+              Novo Participante
+            </Link>
           </li>
           <li>
             <button onClick={handleGenerateGroups}>Gerar chaves</button>
