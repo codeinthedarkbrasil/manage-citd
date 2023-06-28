@@ -46,7 +46,7 @@ export default function Event({ params }: EventProps) {
   })
 
   const handleCheckParticipant = (id: string) => {
-    checkParticipantMutation.mutate(id)
+    checkParticipantMutation.mutate({ id, event })
   }
 
   const participants = query.data ?? []
@@ -77,7 +77,7 @@ export default function Event({ params }: EventProps) {
   }
 
   return (
-    <main>
+    <main className="text-neutral-900 text-body-lg">
       <h1>Code in the Dark {event}</h1>
       <nav>
         <ul>

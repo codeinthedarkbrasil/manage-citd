@@ -7,6 +7,7 @@ export const participants: Participant[] = [
     email: "enottle0@php.net",
     github: "enottle0",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3494260686",
@@ -14,6 +15,7 @@ export const participants: Participant[] = [
     email: "sspence1@surveymonkey.com",
     github: "sspence1",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9566202070",
@@ -21,6 +23,7 @@ export const participants: Participant[] = [
     email: "scoan2@hibu.com",
     github: "scoan2",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "5491035706",
@@ -28,6 +31,7 @@ export const participants: Participant[] = [
     email: "sbend3@blogger.com",
     github: "sbend3",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "0027457519",
@@ -35,6 +39,7 @@ export const participants: Participant[] = [
     email: "bboote4@utexas.edu",
     github: "bboote4",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "8197850668",
@@ -42,6 +47,7 @@ export const participants: Participant[] = [
     email: "jkemson5@wikimedia.org",
     github: "jkemson5",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "4739706055",
@@ -49,6 +55,7 @@ export const participants: Participant[] = [
     email: "rmcgoon6@walmart.com",
     github: "rmcgoon6",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "6167293158",
@@ -56,6 +63,7 @@ export const participants: Participant[] = [
     email: "kgrief7@techcrunch.com",
     github: "kgrief7",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "4548235061",
@@ -63,6 +71,7 @@ export const participants: Participant[] = [
     email: "thartzenberg8@who.int",
     github: "thartzenberg8",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "6959175710",
@@ -70,6 +79,7 @@ export const participants: Participant[] = [
     email: "gsivior9@slate.com",
     github: "gsivior9",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9350462303",
@@ -77,6 +87,7 @@ export const participants: Participant[] = [
     email: "bmadgwicha@webmd.com",
     github: "bmadgwicha",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "2870307747",
@@ -84,6 +95,7 @@ export const participants: Participant[] = [
     email: "swetherellb@forbes.com",
     github: "swetherellb",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "5305026624",
@@ -91,6 +103,7 @@ export const participants: Participant[] = [
     email: "bchsteneyc@wix.com",
     github: "bchsteneyc",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "1268677280",
@@ -98,6 +111,7 @@ export const participants: Participant[] = [
     email: "obeamondd@businesswire.com",
     github: "obeamondd",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "6072344282",
@@ -105,6 +119,7 @@ export const participants: Participant[] = [
     email: "jmckevine@tripod.com",
     github: "jmckevine",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9944429562",
@@ -112,6 +127,7 @@ export const participants: Participant[] = [
     email: "hteersf@163.com",
     github: "hteersf",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "4715646448",
@@ -119,6 +135,7 @@ export const participants: Participant[] = [
     email: "wgrimg@jalbum.net",
     github: "wgrimg",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "5118963854",
@@ -126,6 +143,7 @@ export const participants: Participant[] = [
     email: "ntamblingh@sciencedirect.com",
     github: "ntamblingh",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "7256456855",
@@ -133,6 +151,7 @@ export const participants: Participant[] = [
     email: "tcumberlidgei@ed.gov",
     github: "tcumberlidgei",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9912326576",
@@ -140,6 +159,7 @@ export const participants: Participant[] = [
     email: "cpadsonj@cmu.edu",
     github: "cpadsonj",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3102711916",
@@ -147,6 +167,7 @@ export const participants: Participant[] = [
     email: "pstannettk@vinaora.com",
     github: "pstannettk",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "1486939014",
@@ -154,6 +175,7 @@ export const participants: Participant[] = [
     email: "jcundictl@last.fm",
     github: "jcundictl",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "2848954913",
@@ -161,6 +183,7 @@ export const participants: Participant[] = [
     email: "mebbottsm@etsy.com",
     github: "mebbottsm",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "6936926411",
@@ -168,6 +191,7 @@ export const participants: Participant[] = [
     email: "cwilshern@seesaa.net",
     github: "cwilshern",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3398121175",
@@ -175,6 +199,7 @@ export const participants: Participant[] = [
     email: "rnielsono@ustream.tv",
     github: "rnielsono",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "1111389807",
@@ -182,6 +207,7 @@ export const participants: Participant[] = [
     email: "daggetp@51.la",
     github: "daggetp",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9622596294",
@@ -189,6 +215,7 @@ export const participants: Participant[] = [
     email: "lgilliganq@princeton.edu",
     github: "lgilliganq",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "9776624499",
@@ -196,6 +223,7 @@ export const participants: Participant[] = [
     email: "bpollockr@shop-pro.jp",
     github: "bpollockr",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "1061755757",
@@ -203,6 +231,7 @@ export const participants: Participant[] = [
     email: "lcripins@dedecms.com",
     github: "lcripins",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "2911567510",
@@ -210,6 +239,7 @@ export const participants: Participant[] = [
     email: "gpadmoret@exblog.jp",
     github: "gpadmoret",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3618011368",
@@ -217,6 +247,7 @@ export const participants: Participant[] = [
     email: "mboleru@microsoft.com",
     github: "mboleru",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "2653233106",
@@ -224,6 +255,7 @@ export const participants: Participant[] = [
     email: "tcobdenv@360.cn",
     github: "tcobdenv",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "0696623800",
@@ -231,6 +263,7 @@ export const participants: Participant[] = [
     email: "iashfoldw@telegraph.co.uk",
     github: "iashfoldw",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "0112716260",
@@ -238,6 +271,7 @@ export const participants: Participant[] = [
     email: "mrollettx@ocn.ne.jp",
     github: "mrollettx",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "4592696363",
@@ -245,6 +279,7 @@ export const participants: Participant[] = [
     email: "kspellworthy@stumbleupon.com",
     github: "kspellworthy",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "5196302623",
@@ -252,6 +287,7 @@ export const participants: Participant[] = [
     email: "dhucquartz@github.com",
     github: "dhucquartz",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3775446162",
@@ -259,6 +295,7 @@ export const participants: Participant[] = [
     email: "sklaassens10@nytimes.com",
     github: "sklaassens10",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "7517431683",
@@ -266,6 +303,7 @@ export const participants: Participant[] = [
     email: "npenella11@kickstarter.com",
     github: "npenella11",
     wannaPlay: false,
+    gonnaPlay: false,
   },
   {
     id: "3667209386",
@@ -273,6 +311,7 @@ export const participants: Participant[] = [
     email: "gmoxsom12@guardian.co.uk",
     github: "gmoxsom12",
     wannaPlay: true,
+    gonnaPlay: false,
   },
   {
     id: "1162164608",
@@ -280,5 +319,6 @@ export const participants: Participant[] = [
     email: "djakubiak13@prlog.org",
     github: "djakubiak13",
     wannaPlay: false,
+    gonnaPlay: false,
   },
 ]

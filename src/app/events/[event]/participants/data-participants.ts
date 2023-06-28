@@ -1,18 +1,25 @@
 import { participants } from "./fake-participants"
+import { z } from "zod"
 
-export type Participant = {
-  id: string
-  name: string
-  email: string
-  github: string
-  wannaPlay: boolean
-  gonnaPlay?: boolean
-}
+const participantSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  github: z.string(),
+  wannaPlay: z.coerce.boolean(),
+  gonnaPlay: z.coerce.boolean(),
+})
+
+export type Participant = z.infer<typeof participantSchema>
+
+const arrayOfParticipants = z.array(participantSchema)
 
 export async function getParticipants(event: string): Promise<Participant[]> {
   const data = await fetch(`/events/${event}/participants/api`)
   const participants = await data.json()
-  return participants
+  const result = arrayOfParticipants.parse(participants)
+  console.log({ result })
+  return result
 }
 
 type SetSelectedParticipantsInput = {
@@ -45,7 +52,12 @@ export async function setSelectedParticipants({
   })
 }
 
-export async function checkParticipant(id: string) {
+type CheckParticipantInput = {
+  id: string
+  event: string
+}
+
+export async function checkParticipant({ id, event }: CheckParticipantInput) {
   const participant = participants.find((p) => p.id === id)
   if (!participant) {
     throw new Error("Participante não encontrado")
