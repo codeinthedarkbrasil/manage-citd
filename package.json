@@ -42,11 +42,5 @@
     "lint-staged": "13.2.2",
     "prisma": "4.16.0",
     "tsx": "3.12.7"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "yarn prettier",
-      "yarn lint"
-    ]
   }
 }
