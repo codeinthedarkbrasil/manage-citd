@@ -6,7 +6,11 @@ const buildEslintCommand = (filenames) =>
     .join(" --file ")}`
 
 const config = {
-  "src/**/*.{ts,tsx}": ["yarn prettier", buildEslintCommand],
+  "src/**/*.{ts,tsx}": [
+    () => "yarn type-check",
+    "yarn prettier",
+    buildEslintCommand,
+  ],
 }
 
 export default config
