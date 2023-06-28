@@ -1,6 +1,21 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
-  ]
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:tailwindcss/recommended"
+  ],
+  "root": true,
+  "rules": {
+    "tailwindcss/classnames-order": [
+      1,
+      {
+        "callees": [
+          "classNames",
+          "clsx",
+          "cn",
+          "cva"
+        ]
+      }
+    ]
+  }
 }

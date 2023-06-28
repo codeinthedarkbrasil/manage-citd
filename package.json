@@ -39,6 +39,7 @@
     "@commitlint/cli": "17.6.5",
     "@commitlint/config-conventional": "17.6.5",
     "@tanstack/eslint-plugin-query": "4.29.9",
+    "eslint-plugin-tailwindcss": "3.13.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.2",
     "prisma": "4.16.0",
