@@ -36,3 +36,6 @@ CREATE UNIQUE INDEX "Event_name_key" ON "Event"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Event_slug_key" ON "Event"("slug");
+
+-- CreateIndex
+CREATE INDEX "Event_slug_idx" ON "Event"("slug");

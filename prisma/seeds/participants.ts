@@ -212,8 +212,24 @@ const participants: Participant[] = [
 ]
 
 async function main() {
+  const event = await prisma.event.create({
+    data: {
+      name: "Code in the Dark 2023",
+      slug: "2023",
+    },
+  })
+
   const promiseParticipants = participants.map((data) =>
-    prisma.user.create({ data }),
+    prisma.user.create({
+      data: {
+        ...data,
+        play: {
+          create: {
+            eventId: event.id,
+          },
+        },
+      },
+    }),
   )
   await Promise.all(promiseParticipants)
 }
