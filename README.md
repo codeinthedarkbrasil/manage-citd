@@ -4,17 +4,43 @@
 
 ## Setup ⚙️
 
-Installing deps:
+1. Install the deps:
 
 ```sh
 yarn
 ```
 
-Running the dev server:
+2. Copy `.env.example` file to a new `.env` file:
 
+```sh
+cp .env.example .env
 ```
+
+3. Run migrations to create the database:
+
+```sh
+yarn prisma migrate dev
+```
+
+4. Run seed to fill up the database:
+
+```sh
+yarn seed
+```
+
+6. Run the dev server:
+
+```sh
 yarn dev
 ```
+
+If you want to check the data in the database, you can run `prisma studio`:
+
+```sh
+yarn prisma studio
+```
+
+To re-run the seed, first delete the file `prisma/dev.db`, then run steps `3` and `4` again.
 
 ## Contributing 📖
 
