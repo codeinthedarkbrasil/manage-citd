@@ -2,7 +2,9 @@
 
 import Link from "next/link"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { TableBody } from "./table-body"
+import { TableParticipants } from "./table-participants"
+import { Button, Checkbox, Input } from "@/components"
+import { Filter as FilterIcon } from "lucide-react"
 import {
   getParticipants,
   setSelectedParticipants,
@@ -77,40 +79,61 @@ export default function Event({ params }: EventProps) {
   }
 
   return (
-    <main className="text-neutral-900 text-body-lg">
-      <h1>Code in the Dark {event}</h1>
-      <nav>
-        <ul>
-          <li>
-            <button>Importar CSV</button>
-          </li>
-          <li>
-            <Link href={`/events/${event}/participants/new`}>
-              Novo Participante
-            </Link>
-          </li>
-          <li>
-            <button onClick={handleGenerateGroups}>Gerar chaves</button>
-          </li>
-        </ul>
-      </nav>
+    <main className="pb-8 font-sans">
+      <div className="mb-8 flex justify-between">
+        <h1 className="text-[2.0rem] font-bold text-neutral-900">
+          Code in the Dark {event}
+        </h1>
+        <nav>
+          <ul className="flex gap-3">
+            <li>
+              <Button variant="text">Importar CSV</Button>
+            </li>
+            <li>
+              <Button asChild>
+                <Link href={`/events/${event}/participants/new`}>
+                  Novo Participante
+                </Link>
+              </Button>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Sorteio</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>GitHub</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <TableBody
-          event={event}
-          participants={participants}
-          onCheckParticipant={handleCheckParticipant}
-        />
-      </table>
+      <div className="mb-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-[210px]">
+            <Input
+              icon={
+                <FilterIcon className="h-[16px] w-[16px] text-neutral-500" />
+              }
+              placeholder="Buscar Participante"
+            />
+          </div>
+          <div>
+            <div className="flex gap-1">
+              <Checkbox id="raffle-participants" />
+              <label
+                htmlFor="raffle-participants"
+                className="text-[1.2rem] font-normal text-neutral-500"
+              >
+                Participantes do Sorteio
+              </label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <Button variant="text" onClick={handleGenerateGroups}>
+            Gerar chaves
+          </Button>
+        </div>
+      </div>
+
+      <TableParticipants
+        event={event}
+        participants={participants}
+        onCheckParticipant={handleCheckParticipant}
+      />
     </main>
   )
 }
