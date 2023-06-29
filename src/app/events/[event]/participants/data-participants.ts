@@ -17,8 +17,8 @@ const arrayOfParticipants = z.array(participantSchema)
 export async function getParticipants(event: string): Promise<Participant[]> {
   const data = await fetch(`/events/${event}/participants/api`)
   const participants = await data.json()
+  console.log({ participants })
   const result = arrayOfParticipants.parse(participants)
-  console.log({ result })
   return result
 }
 
