@@ -20,15 +20,15 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Play" (
     "userId" TEXT NOT NULL,
-    "eventId" TEXT NOT NULL,
+    "eventSlug" TEXT NOT NULL,
     "wannaPlay" BOOLEAN NOT NULL DEFAULT false,
     "gonnaPlay" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
 
-    PRIMARY KEY ("userId", "eventId"),
+    PRIMARY KEY ("userId", "eventSlug"),
     CONSTRAINT "Play_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Play_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Play_eventSlug_fkey" FOREIGN KEY ("eventSlug") REFERENCES "Event" ("slug") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

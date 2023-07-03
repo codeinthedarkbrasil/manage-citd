@@ -9,6 +9,7 @@
     "lint": "next lint",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "seed": "tsx prisma/seeds/participants.ts",
+    "migrate": "prisma migrate dev",
     "prepare": "husky install"
   },
   "dependencies": {

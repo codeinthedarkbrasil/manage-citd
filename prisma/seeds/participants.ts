@@ -225,7 +225,7 @@ async function main() {
         ...data,
         play: {
           create: {
-            eventId: event.id,
+            eventSlug: event.slug,
           },
         },
       },
