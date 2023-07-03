@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link"
 import type { Participant } from "./participants/data-participants"
 import {
@@ -16,7 +14,7 @@ import { Trash2 as RemoveIcon, Edit as EditIcon } from "lucide-react"
 type TableBodyProps = {
   event: string
   participants: Participant[]
-  onCheckParticipant: (id: string) => void
+  onCheckParticipant: (args: { id: string; checked: boolean }) => void
 }
 
 export function TableParticipants({
@@ -44,7 +42,11 @@ export function TableParticipants({
             <TableCell>
               <Checkbox
                 defaultChecked={participant.wannaPlay}
-                onChange={() => onCheckParticipant(participant.id)}
+                onCheckedChange={(checked) => {
+                  if (typeof checked === "boolean") {
+                    onCheckParticipant({ id: participant.id, checked })
+                  }
+                }}
               />
             </TableCell>
             <TableCell>{participant.name}</TableCell>
