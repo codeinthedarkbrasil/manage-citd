@@ -17,7 +17,6 @@ const arrayOfParticipants = z.array(participantSchema)
 export async function getParticipants(event: string): Promise<Participant[]> {
   const data = await fetch(`/events/${event}/participants/api`)
   const participants = await data.json()
-  console.log({ participants })
   const result = arrayOfParticipants.parse(participants)
   return result
 }
@@ -55,12 +54,25 @@ export async function setSelectedParticipants({
 type CheckParticipantInput = {
   id: string
   event: string
+  checked: boolean
 }
 
-export async function checkParticipant({ id, event }: CheckParticipantInput) {
-  const participant = participants.find((p) => p.id === id)
-  if (!participant) {
-    throw new Error("Participante não encontrado")
-  }
-  participant.wannaPlay = !participant.wannaPlay
+export async function checkParticipant({
+  id,
+  checked,
+  event,
+}: CheckParticipantInput) {
+  console.log("check participant checked?", checked)
+  await fetch(`/events/${event}/participants/${id}/api/check-participant`, {
+    method: "POST",
+    body: JSON.stringify({ checked }),
+    headers: {
+      "content-type": "application/json",
+    },
+  })
+  // const participant = participants.find((p) => p.id === id)
+  // if (!participant) {
+  //   throw new Error("Participante não encontrado")
+  // }
+  // participant.wannaPlay = !participant.wannaPlay
 }
