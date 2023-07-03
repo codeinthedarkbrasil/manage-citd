@@ -16,10 +16,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <head>
         <link rel="icon" href="https://fav.farm/⚡" />
       </head>
-      <body className={`${sora.variable} text-2xl bg-neutral-100 h-full`}>
+      <body className={`${sora.variable} text-2xl h-full bg-neutral-100`}>
         <div className="flex h-full">
           <Sidebar>
-            <Image src="logo.svg" alt="CTD Logo" width={32} height={32} />
+            <Image src="/logo.svg" alt="CTD Logo" width={32} height={32} />
             <SidebarList>
               <SidebarItem>
                 <SidebarLink href="/events">
@@ -41,8 +41,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
               </SidebarItem>
             </SidebarList>
           </Sidebar>
-          <main className="pt-8 h-full w-full flex justify-center">
-            <div className="max-w-wrapper w-full">{children}</div>
+          <main className="flex h-full w-full justify-center pt-8">
+            <div className="w-full max-w-wrapper">{children}</div>
           </main>
         </div>
       </body>
