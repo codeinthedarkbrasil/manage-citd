@@ -47,17 +47,18 @@ export default function Event({ params }: EventProps) {
     mutationFn: checkParticipant,
   })
 
-  const handleCheckParticipant = (id: string) => {
-    checkParticipantMutation.mutate({ id, event })
+  const handleCheckParticipant = ({
+    id,
+    checked,
+  }: {
+    id: string
+    checked: boolean
+  }) => {
+    console.log("handleCheckParticipant")
+    checkParticipantMutation.mutate({ id, checked, event })
   }
 
   const participants = query.data ?? []
-  console.count("Event rendered")
-  console.log("participants.length:", participants.length)
-  console.log(
-    "selected participants:",
-    participants.filter((p) => p.gonnaPlay),
-  )
 
   const handleGenerateGroups = () => {
     const selected = new Set<string>()
@@ -74,7 +75,6 @@ export default function Event({ params }: EventProps) {
         selected.add(participants[rnd].id)
       }
     }
-    console.log("all selected:", selected)
     generateGroupsMutation.mutate({ event, ids: selected })
   }
 
