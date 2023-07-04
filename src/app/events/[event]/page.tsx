@@ -54,7 +54,6 @@ export default function Event({ params }: EventProps) {
     id: string
     checked: boolean
   }) => {
-    console.log("handleCheckParticipant")
     checkParticipantMutation.mutate({ id, checked, event })
   }
 
@@ -64,6 +63,7 @@ export default function Event({ params }: EventProps) {
     const selected = new Set<string>()
     const checkedParticipants = participants.filter((p) => p.wannaPlay)
     if (checkedParticipants.length < 16) {
+      // TODO: Mostrar erro na tela
       console.log("Não tem a quantidade mínima selecionada")
       return
     }
