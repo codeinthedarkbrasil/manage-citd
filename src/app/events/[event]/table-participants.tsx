@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Participant } from "./participants/data-participants"
 import {
-  Checkbox,
+  DebouncedCheckbox,
   Table,
   TableHeader,
   TableBody,
@@ -40,7 +40,7 @@ export function TableParticipants({
             className={participant.gonnaPlay ? "bg-danger-100" : ""}
           >
             <TableCell>
-              <Checkbox
+              <DebouncedCheckbox
                 defaultChecked={participant.wannaPlay}
                 onCheckedChange={(checked) => {
                   if (typeof checked === "boolean") {
