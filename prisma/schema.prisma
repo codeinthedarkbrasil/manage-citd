@@ -17,8 +17,6 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   play      Play[]
-
-  @@index(slug)
 }
 
 model User {
