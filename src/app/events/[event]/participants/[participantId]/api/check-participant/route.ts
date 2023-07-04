@@ -10,22 +10,24 @@ type CheckParticipantInput = {
 
 export async function POST(
   request: NextRequest,
-  { event, participantId }: CheckParticipantInput,
+  { params }: CheckParticipantInput,
 ) {
-  const body = request.body
+  const { event, participantId } = params
+  // TODO: Validar o body com zod
+  const body: { checked: boolean } = await request.json()
   console.log({ body })
 
-  return new NextResponse()
+  await prisma.play.update({
+    where: {
+      userId_eventSlug: {
+        userId: participantId,
+        eventSlug: event,
+      },
+    },
+    data: {
+      wannaPlay: body.checked,
+    },
+  })
 
-  // await prisma.user.update({
-  //   data: {
-  //     play: {
-  //       update: {
-  //         data: {
-  //           wannaPlay:
-  //         }
-  //       }
-  //     }
-  //   }
-  // })
+  return new NextResponse()
 }
