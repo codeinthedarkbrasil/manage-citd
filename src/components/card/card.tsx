@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 export function Card({ children }: PropsWithChildren) {
   return (
-    <article className="bg-neutral-200 hover:translate-y-[-2px] hover:bg-neutral-200/90 transition-all duration-300 rounded-1">
+    <article className="rounded-1 bg-neutral-200 transition-all duration-300 hover:translate-y-[-2px] hover:bg-neutral-200/90">
       {children}
     </article>
   )

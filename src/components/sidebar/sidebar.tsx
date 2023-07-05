@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 type SidebarLinkProps = PropsWithChildren<{ href: string }>
 
 export const Sidebar = ({ children }: PropsWithChildren) => (
-  <aside className="flex flex-col pt-2 items-center w-sidebar border-r border-r-neutral-200 h-full">
+  <aside className="flex h-full w-sidebar flex-col items-center border-r border-r-neutral-200 pt-2">
     {children}
   </aside>
 )
@@ -26,7 +26,7 @@ export const SidebarLink = ({ children, href }: SidebarLinkProps) => {
   const colorStyles = isActive ? "text-primary-100" : "text-neutral-300"
 
   return (
-    <Link href={href} className={`${colorStyles} hover:text-primary-100 transition-colors`}>
+    <Link href={href} className={`${colorStyles} transition-colors hover:text-primary-100`}>
       {children}
     </Link>
   )

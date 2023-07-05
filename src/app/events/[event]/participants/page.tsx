@@ -12,10 +12,10 @@ import { EventProps, Round } from "@/shared/types"
 export default function Participants({ params }: EventProps) {
   return (
     <section className="font-sans">
-      <p className="text-neutral-500 text-body-xs underline leading-normal">
+      <p className="text-body-xs leading-normal text-neutral-500 underline">
         Code in The Dark {params.event}
       </p>
-      <h2 className="text-title-sm text-neutral-900 leading-normal font-bold mt-1">
+      <h2 className="mt-1 text-title-sm font-bold leading-normal text-neutral-900">
         Gerenciar Chave
       </h2>
       <RoundsList>
