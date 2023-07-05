@@ -15,14 +15,14 @@ export function ParticipantImage({
   lined,
 }: ParticipantImageProps) {
   return (
-    <div className={`w-[69px] h-[69px]  ${lined && afterClasses}`}>
-      <div className="overflow-hidden border-2 border-primary-100 rounded-full">
+    <div className={`h-[69px] w-[69px]  ${lined && afterClasses}`}>
+      <div className="overflow-hidden rounded-full border-2 border-primary-100">
         <Image
           src={src}
           alt={alt}
           width={69}
           height={69}
-          className="w-full h-full object-cover relative z-10 transition-all duration-300 hover:scale-125"
+          className="z-10 relative h-full w-full object-cover transition-all duration-300 hover:scale-125"
         />
       </div>
     </div>

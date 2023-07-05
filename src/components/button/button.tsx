@@ -5,20 +5,20 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   `
+  rounded-md
+  focus-visible:ring-ring
   inline-flex
   items-center
   justify-center
-  rounded-md
   font-sans
   text-[1.4rem]
   font-bold
   transition-colors
   focus-visible:outline-none
   focus-visible:ring-2
-  focus-visible:ring-ring
   focus-visible:ring-offset-2
-  disabled:opacity-50
   disabled:pointer-events-none
+  disabled:opacity-50
   `,
   {
     variants: {
@@ -27,7 +27,7 @@ const buttonVariants = cva(
         text: "text-primary-100 hover:bg-primary-100 hover:text-neutral-100",
       },
       size: {
-        sm: "h-[42px] px-2 rounded-1",
+        sm: "h-[42px] rounded-1 px-2",
       },
     },
     defaultVariants: {
