@@ -5,8 +5,6 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   `
-  rounded-md
-  focus-visible:ring-ring
   inline-flex
   items-center
   justify-center
