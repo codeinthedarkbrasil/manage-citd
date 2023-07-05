@@ -22,7 +22,7 @@ export function ParticipantImage({
           alt={alt}
           width={69}
           height={69}
-          className="z-10 relative h-full w-full object-cover transition-all duration-300 hover:scale-125"
+          className="relative h-full w-full object-cover transition-all duration-300 hover:scale-125"
         />
       </div>
     </div>

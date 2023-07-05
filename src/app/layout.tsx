@@ -16,7 +16,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <head>
         <link rel="icon" href="https://fav.farm/⚡" />
       </head>
-      <body className={`${sora.variable} text-2xl h-full bg-neutral-100`}>
+      <body className={`${sora.variable} h-full bg-neutral-100`}>
         <div className="flex h-full">
           <Sidebar>
             <Image src="/logo.svg" alt="CTD Logo" width={32} height={32} />
