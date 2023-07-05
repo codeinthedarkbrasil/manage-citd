@@ -1,4 +1,5 @@
-import { prisma } from "@/prisma"
+import { getQueryParams } from "@/lib/utils"
+import { prisma, Prisma } from "@/prisma"
 import { NextResponse } from "next/server"
 
 type GetParticipantsInput = {
@@ -7,8 +8,15 @@ type GetParticipantsInput = {
   }
 }
 
-export async function GET(_: unknown, { params }: GetParticipantsInput) {
+export async function GET(request: Request, { params }: GetParticipantsInput) {
+
+  const queryParams = getQueryParams(request)
+
+  const search = queryParams.get("search") ?? ''
+
+  const where = buildSearchStatement(search)
   const users = await prisma.user.findMany({
+    where,
     include: {
       play: {
         select: {
@@ -36,4 +44,30 @@ export async function GET(_: unknown, { params }: GetParticipantsInput) {
   return NextResponse.json(result)
 }
 
-export async function POST(_request: Request) {}
+function buildSearchStatement(search: string): Prisma.UserWhereInput {
+  const searchStatement: Prisma.UserWhereInput = {
+  }
+
+  if (search) {
+    searchStatement.OR = [
+      {
+        name: {
+          contains: search,
+        },
+      },
+      {
+        email: {
+          contains: search,
+        },
+      },
+      {
+        github: {
+          contains: search,
+        },
+      },
+    ]
+  }
+  return searchStatement
+}
+
+export async function POST(_request: Request) { }
