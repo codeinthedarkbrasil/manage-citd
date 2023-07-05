@@ -36,8 +36,8 @@ export default function Event({ params }: EventProps) {
   const queryClient = useQueryClient()
 
   const query = useQuery({
-    queryKey: ["participants", { event, search: deferredValue }],
-    queryFn: () => getParticipants(event, deferredValue),
+    queryKey: ["participants", { event }],
+    queryFn: () => getParticipants(event),
   })
 
   const generateGroupsMutation = useMutation({
@@ -62,10 +62,21 @@ export default function Event({ params }: EventProps) {
   }
 
   const participants = query.data ?? []
+  const filteredParticipants = participants.filter((p) => {
+        if (deferredValue === "") return true
+
+        const name = p.name.toLowerCase()
+        const email = p.email.toLowerCase()
+        const github = p.github.toLowerCase()
+
+        const search = deferredValue.toLowerCase()
+
+        return (name.includes(search) || email.includes(search) || github.includes(search))
+      })
 
   const handleGenerateGroups = () => {
     const selected = new Set<string>()
-    const checkedParticipants = participants.filter((p) => p.wannaPlay)
+    const checkedParticipants = filteredParticipants.filter((p) => p.wannaPlay)
     if (checkedParticipants.length < 16) {
       // TODO: Mostrar erro na tela
       console.log("Não tem a quantidade mínima selecionada")
@@ -73,10 +84,10 @@ export default function Event({ params }: EventProps) {
     }
 
     while (selected.size < 16) {
-      const rnd = getRandomInteger(participants.length - 1)
-      const participant = participants[rnd]
+      const rnd = getRandomInteger(filteredParticipants.length - 1)
+      const participant = filteredParticipants[rnd]
       if (participant.wannaPlay) {
-        selected.add(participants[rnd].id)
+        selected.add(filteredParticipants[rnd].id)
       }
     }
     generateGroupsMutation.mutate({ event, ids: selected })
@@ -137,7 +148,7 @@ export default function Event({ params }: EventProps) {
 
       <TableParticipants
         event={event}
-        participants={participants}
+        participants={filteredParticipants}
         onCheckParticipant={handleCheckParticipant}
       />
     </main>
