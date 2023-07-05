@@ -14,8 +14,8 @@ export type Participant = z.infer<typeof participantSchema>
 
 const arrayOfParticipants = z.array(participantSchema)
 
-export async function getParticipants(event: string): Promise<Participant[]> {
-  const data = await fetch(`/events/${event}/participants/api`)
+export async function getParticipants(event: string, search: string): Promise<Participant[]> {
+  const data = await fetch(`/events/${event}/participants/api?search=${search}`)
   const participants = await data.json()
   const result = arrayOfParticipants.parse(participants)
   return result
