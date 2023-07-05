@@ -1,5 +1,6 @@
 "use client"
 
+import { useDeferredValue, useState } from "react"
 import Link from "next/link"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableParticipants } from "./table-participants"
@@ -29,11 +30,14 @@ const generateGroups = async ({ event, ids }: GenerateGroupsInput) => {
 export default function Event({ params }: EventProps) {
   const { event } = params
 
+  const [value, setValue] = useState("")
+  const deferredValue = useDeferredValue(value)
+
   const queryClient = useQueryClient()
 
   const query = useQuery({
-    queryKey: ["participants", { event }],
-    queryFn: () => getParticipants(event),
+    queryKey: ["participants", { event, search: deferredValue }],
+    queryFn: () => getParticipants(event, deferredValue),
   })
 
   const generateGroupsMutation = useMutation({
@@ -104,6 +108,8 @@ export default function Event({ params }: EventProps) {
         <div className="flex items-center gap-2">
           <div className="w-[210px]">
             <Input
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
               icon={
                 <FilterIcon className="h-[16px] w-[16px] text-neutral-500" />
               }
