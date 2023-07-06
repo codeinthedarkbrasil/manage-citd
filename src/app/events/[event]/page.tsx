@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableParticipants } from "./table-participants"
 import { Button, Checkbox, Input } from "@/components"
@@ -28,6 +29,7 @@ const generateGroups = async ({ event, ids }: GenerateGroupsInput) => {
 
 export default function Event({ params }: EventProps) {
   const { event } = params
+  const router = useRouter()
 
   const queryClient = useQueryClient()
 
@@ -40,6 +42,7 @@ export default function Event({ params }: EventProps) {
     mutationFn: generateGroups,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+      router.push(`/events/${event}/participants`)
     },
   })
 
