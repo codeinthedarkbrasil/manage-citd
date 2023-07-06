@@ -15,7 +15,6 @@ export async function POST(
   const { event, participantId } = params
   // TODO: Validar o body com zod
   const body: { checked: boolean } = await request.json()
-  console.log({ body })
 
   await prisma.play.update({
     where: {
