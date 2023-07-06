@@ -33,6 +33,8 @@ export default function Event({ params }: EventProps) {
   const [value, setValue] = useState("")
   const deferredValue = useDeferredValue(value)
 
+  const [isOnlyRaffle, setIsOnlyRaffle] = useState(false)
+
   const queryClient = useQueryClient()
 
   const query = useQuery({
@@ -61,8 +63,19 @@ export default function Event({ params }: EventProps) {
     checkParticipantMutation.mutate({ id, checked, event })
   }
 
+  const handleSetOnlyRaffle = () => {
+    setIsOnlyRaffle((prev) => {
+      const newValue = !prev
+      if (newValue) {
+        setValue("")
+      }
+      return newValue
+    })
+  }
+
   const participants = query.data ?? []
   const filteredParticipants = participants.filter((p) => {
+        if (isOnlyRaffle) return p.wannaPlay
         if (deferredValue === "") return true
 
         const name = p.name.toLowerCase()
@@ -129,7 +142,7 @@ export default function Event({ params }: EventProps) {
           </div>
           <div>
             <div className="flex gap-1">
-              <Checkbox id="raffle-participants" />
+              <Checkbox id="raffle-participants" checked={isOnlyRaffle} onCheckedChange={() => handleSetOnlyRaffle()} />
               <label
                 htmlFor="raffle-participants"
                 className="text-[1.2rem] font-normal text-neutral-500"
