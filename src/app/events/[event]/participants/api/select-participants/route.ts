@@ -1,6 +1,50 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/prisma"
 
+type GetSelectedParticipantsInput = {
+  params: {
+    event: string
+  }
+}
+
+export async function GET(_: unknown, { params }: GetSelectedParticipantsInput) {
+  const users = await prisma.user.findMany({
+    include: {
+      play: {
+        select: {
+          wannaPlay: true,
+          gonnaPlay: true,
+        },
+        where: {
+          event: {
+            slug: params.event,
+          },
+        },
+      },
+    },
+
+    where: {
+      play: {
+        every: {
+          gonnaPlay: true,
+          wannaPlay: true,
+        }
+      }
+    }
+  })
+
+  const result = users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    github: user.github,
+    wannaPlay: user.play[0].wannaPlay,
+    gonnaPlay: user.play[0].gonnaPlay,
+  }))
+
+  return NextResponse.json(result)
+}
+
 type SelectParticipantsInput = {
   params: {
     event: string
@@ -41,3 +85,5 @@ export async function POST(
 
   return new NextResponse()
 }
+
+
