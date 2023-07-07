@@ -20,6 +20,14 @@ export async function getParticipants(event: string): Promise<Participant[]> {
   return result
 }
 
+export async function getSelectedParticipants(event: string): Promise<Participant[]> {
+  const data = await fetch(`/events/${event}/participants/api/select-participants`)
+  const selectedParticipants = await data.json()
+  const result = arrayOfParticipants.parse(selectedParticipants)
+  return result
+}
+
+
 type SetSelectedParticipantsInput = {
   event: string
   ids: string[]

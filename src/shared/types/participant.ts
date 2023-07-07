@@ -1,5 +1,8 @@
 export type Participant = {
-  id: number;
-  avatarUrl: string;
-  name: string;
+  id: string,
+  name: string,
+  email: string,
+  github: string,
+  wannaPlay: boolean,
+  gonnaPlay: boolean,
 };
