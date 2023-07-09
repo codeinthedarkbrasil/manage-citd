@@ -1,11 +1,17 @@
 "use client"
 
 import { ChangeEvent, useState } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableParticipants } from "./table-participants"
-import { Button, Checkbox, Input } from "@/components"
+import {
+  Button,
+  Checkbox,
+  Input,
+  Modal,
+  ModalTrigger,
+  RegisterParticipantModal,
+} from "@/components"
 import { Filter as FilterIcon } from "lucide-react"
 import {
   getParticipants,
@@ -137,11 +143,12 @@ export default function Event({ params }: EventProps) {
               <Button variant="text">Importar CSV</Button>
             </li>
             <li>
-              <Button asChild>
-                <Link href={`/events/${event}/participants/new`}>
-                  Novo Participante
-                </Link>
-              </Button>
+              <Modal>
+                <ModalTrigger asChild>
+                  <Button>Novo Participante</Button>
+                </ModalTrigger>
+                <RegisterParticipantModal />
+              </Modal>
             </li>
           </ul>
         </nav>
