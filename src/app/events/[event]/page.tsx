@@ -1,6 +1,6 @@
 "use client"
 
-import { useDeferredValue, useState } from "react"
+import { ChangeEvent, useDeferredValue, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
@@ -78,17 +78,19 @@ export default function Event({ params }: EventProps) {
 
   const participants = query.data ?? []
   const filteredParticipants = participants.filter((p) => {
-        if (isOnlyRaffle) return p.wannaPlay
-        if (deferredValue === "") return true
+    if (isOnlyRaffle) return p.wannaPlay
+    if (deferredValue === "") return true
 
-        const name = p.name.toLowerCase()
-        const email = p.email.toLowerCase()
-        const github = p.github.toLowerCase()
+    const name = p.name.toLowerCase()
+    const email = p.email.toLowerCase()
+    const github = p.github.toLowerCase()
 
-        const search = deferredValue.toLowerCase()
+    const search = deferredValue.toLowerCase()
 
-        return (name.includes(search) || email.includes(search) || github.includes(search))
-      })
+    return (
+      name.includes(search) || email.includes(search) || github.includes(search)
+    )
+  })
 
   const handleGenerateGroups = () => {
     const selected = new Set<string>()
@@ -109,6 +111,13 @@ export default function Event({ params }: EventProps) {
     generateGroupsMutation.mutate({ event, ids: selected })
   }
 
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("upload")
+    if ("files" in e.target) {
+      console.log(e.target.files)
+    }
+  }
+
   return (
     <main className="pb-8 font-sans">
       <div className="mb-8 flex justify-between">
@@ -118,6 +127,11 @@ export default function Event({ params }: EventProps) {
         <nav>
           <ul className="flex gap-3">
             <li>
+              <input
+                type="file"
+                className="text-neutral-900"
+                onChange={handleFileUpload}
+              />
               <Button variant="text">Importar CSV</Button>
             </li>
             <li>
@@ -145,7 +159,11 @@ export default function Event({ params }: EventProps) {
           </div>
           <div>
             <div className="flex gap-1">
-              <Checkbox id="raffle-participants" checked={isOnlyRaffle} onCheckedChange={() => handleSetOnlyRaffle()} />
+              <Checkbox
+                id="raffle-participants"
+                checked={isOnlyRaffle}
+                onCheckedChange={() => handleSetOnlyRaffle()}
+              />
               <label
                 htmlFor="raffle-participants"
                 className="text-[1.2rem] font-normal text-neutral-500"
