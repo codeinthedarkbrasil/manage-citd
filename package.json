@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "seed": "tsx prisma/seeds/participants.ts",
+    "seed": "tsx prisma/seed/seed.ts",
     "migrate": "prisma migrate dev",
+    "jsontocsv": "tsx prisma/seed/json-to-csv.ts",
     "prepare": "husky install"
   },
   "dependencies": {

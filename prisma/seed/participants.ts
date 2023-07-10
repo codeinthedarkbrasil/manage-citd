@@ -1,14 +1,10 @@
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
-
 type Participant = {
   name: string
   email: string
   github: string
 }
 
-const participants: Participant[] = [
+export const participants: Participant[] = [
   {
     name: "Eal Nottle",
     email: "enottle0@php.net",
@@ -210,36 +206,3 @@ const participants: Participant[] = [
     github: "fdaciuk",
   },
 ]
-
-async function main() {
-  const event = await prisma.event.create({
-    data: {
-      name: "Code in the Dark 2023",
-      slug: "2023",
-    },
-  })
-
-  const promiseParticipants = participants.map((data) =>
-    prisma.user.create({
-      data: {
-        ...data,
-        play: {
-          create: {
-            eventSlug: event.slug,
-          },
-        },
-      },
-    }),
-  )
-  await Promise.all(promiseParticipants)
-}
-
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.log(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
