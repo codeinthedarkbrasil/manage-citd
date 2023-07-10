@@ -1,4 +1,4 @@
-import { Participant } from "./data-participants"
+import { Participant } from "@/shared/types"
 
 export const participants: Participant[] = [
   {

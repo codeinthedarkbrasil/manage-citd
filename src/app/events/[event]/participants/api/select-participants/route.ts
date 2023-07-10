@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/prisma"
+import { Participant } from "@/shared/types"
 
 type GetSelectedParticipantsInput = {
   params: {
@@ -7,7 +8,10 @@ type GetSelectedParticipantsInput = {
   }
 }
 
-export async function GET(_: unknown, { params }: GetSelectedParticipantsInput) {
+export async function GET(
+  _: unknown,
+  { params }: GetSelectedParticipantsInput,
+) {
   const users = await prisma.user.findMany({
     include: {
       play: {
@@ -27,13 +31,12 @@ export async function GET(_: unknown, { params }: GetSelectedParticipantsInput) 
       play: {
         every: {
           gonnaPlay: true,
-          wannaPlay: true,
-        }
-      }
-    }
+        },
+      },
+    },
   })
 
-  const result = users.map((user) => ({
+  const result: Participant[] = users.map((user) => ({
     id: user.id,
     name: user.name,
     email: user.email,
@@ -85,5 +88,3 @@ export async function POST(
 
   return new NextResponse()
 }
-
-

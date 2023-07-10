@@ -1,32 +1,20 @@
-import { z } from "zod"
-
-const participantSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  github: z.string(),
-  wannaPlay: z.coerce.boolean(),
-  gonnaPlay: z.coerce.boolean(),
-})
-
-export type Participant = z.infer<typeof participantSchema>
-
-const arrayOfParticipants = z.array(participantSchema)
+import { arrayOfParticipantsSchema, type Participant } from "@/shared/types"
 
 export async function getParticipants(event: string): Promise<Participant[]> {
   const data = await fetch(`/events/${event}/participants/api`)
   const participants = await data.json()
-  const result = arrayOfParticipants.parse(participants)
-  return result
+  return arrayOfParticipantsSchema.parse(participants)
 }
 
-export async function getSelectedParticipants(event: string): Promise<Participant[]> {
-  const data = await fetch(`/events/${event}/participants/api/select-participants`)
+export async function getSelectedParticipants(
+  event: string,
+): Promise<Participant[]> {
+  const data = await fetch(
+    `/events/${event}/participants/api/select-participants`,
+  )
   const selectedParticipants = await data.json()
-  const result = arrayOfParticipants.parse(selectedParticipants)
-  return result
+  return arrayOfParticipantsSchema.parse(selectedParticipants)
 }
-
 
 type SetSelectedParticipantsInput = {
   event: string

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { Participant } from "./participants/data-participants"
+import type { Participant } from "@/shared/types"
 import {
   DebouncedCheckbox,
   Table,

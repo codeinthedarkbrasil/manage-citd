@@ -1,8 +1,14 @@
-export type Participant = {
-  id: string,
-  name: string,
-  email: string,
-  github: string,
-  wannaPlay: boolean,
-  gonnaPlay: boolean,
-};
+import { z } from "zod"
+
+const participantSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  github: z.string(),
+  wannaPlay: z.coerce.boolean(),
+  gonnaPlay: z.coerce.boolean(),
+})
+
+export const arrayOfParticipantsSchema = z.array(participantSchema)
+
+export type Participant = z.infer<typeof participantSchema>
