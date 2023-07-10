@@ -37,3 +37,4 @@ next-env.d.ts
 
 # sqlite
 prisma/dev.db*
+frontin.csv
