@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/prisma"
 import { participants } from "./participants"
-
-const prisma = new PrismaClient()
 
 async function main() {
   const event = await prisma.event.create({
