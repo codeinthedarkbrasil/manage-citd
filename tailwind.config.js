@@ -80,9 +80,29 @@ module.exports = {
             transform: "scale(1)",
           },
         },
+        rotate: {
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
+        dash: {
+          "0%": {
+            strokeDasharray: "1, 150",
+            strokeDashoffset: 0,
+          },
+          "50%": {
+            strokeDasharray: "90, 150",
+          },
+          "100%": {
+            strokeDasharray: "90, 150",
+            strokeDashoffset: -124,
+          },
+        },
       },
       animation: {
         fillAnimation: "fillAnimation 300ms forwards",
+        dash: "dash 1.5s ease-in-out infinite",
+        rotate: "rotate 2s linear infinite",
       },
     },
   },
