@@ -12,6 +12,7 @@ import {
   setSelectedParticipants,
   checkParticipant,
 } from "./participants/data-participants"
+import { upload } from "./participants/upload"
 import { getRandomInteger } from "./get-random-integer"
 
 type EventProps = {
@@ -112,10 +113,7 @@ export default function Event({ params }: EventProps) {
   }
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("upload")
-    if ("files" in e.target) {
-      console.log(e.target.files)
-    }
+    e.target.form?.submit()
   }
 
   return (
@@ -126,12 +124,17 @@ export default function Event({ params }: EventProps) {
         </h1>
         <nav>
           <ul className="flex gap-3">
-            <li>
-              <input
-                type="file"
-                className="text-neutral-900"
-                onChange={handleFileUpload}
-              />
+            <li className="relative">
+              <form action={upload} className="absolute">
+                <input
+                  type="file"
+                  name="file"
+                  className="text-neutral-900"
+                  onChange={handleFileUpload}
+                />
+
+                <input type="hidden" name="event" value={event} />
+              </form>
               <Button variant="text">Importar CSV</Button>
             </li>
             <li>
