@@ -9,6 +9,7 @@
     "lint": "next lint",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "seed": "tsx prisma/seed/seed.ts",
+    "seed-event": "tsx prisma/seed/seed-event.ts",
     "migrate": "prisma migrate dev",
     "reset-db": "prisma migrate reset",
     "jsontocsv": "tsx prisma/seed/json-to-csv.ts",
