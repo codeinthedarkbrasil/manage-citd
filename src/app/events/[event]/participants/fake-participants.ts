@@ -8,6 +8,8 @@ export const participants: Participant[] = [
     github: "enottle0",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3494260686",
@@ -16,6 +18,8 @@ export const participants: Participant[] = [
     github: "sspence1",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9566202070",
@@ -24,6 +28,8 @@ export const participants: Participant[] = [
     github: "scoan2",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "5491035706",
@@ -32,6 +38,8 @@ export const participants: Participant[] = [
     github: "sbend3",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "0027457519",
@@ -40,6 +48,8 @@ export const participants: Participant[] = [
     github: "bboote4",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "8197850668",
@@ -48,6 +58,8 @@ export const participants: Participant[] = [
     github: "jkemson5",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "4739706055",
@@ -56,6 +68,8 @@ export const participants: Participant[] = [
     github: "rmcgoon6",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "6167293158",
@@ -64,6 +78,8 @@ export const participants: Participant[] = [
     github: "kgrief7",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "4548235061",
@@ -72,6 +88,8 @@ export const participants: Participant[] = [
     github: "thartzenberg8",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "6959175710",
@@ -80,6 +98,8 @@ export const participants: Participant[] = [
     github: "gsivior9",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9350462303",
@@ -88,6 +108,8 @@ export const participants: Participant[] = [
     github: "bmadgwicha",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "2870307747",
@@ -96,6 +118,8 @@ export const participants: Participant[] = [
     github: "swetherellb",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "5305026624",
@@ -104,6 +128,8 @@ export const participants: Participant[] = [
     github: "bchsteneyc",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "1268677280",
@@ -112,6 +138,8 @@ export const participants: Participant[] = [
     github: "obeamondd",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "6072344282",
@@ -120,6 +148,8 @@ export const participants: Participant[] = [
     github: "jmckevine",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9944429562",
@@ -128,6 +158,8 @@ export const participants: Participant[] = [
     github: "hteersf",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "4715646448",
@@ -136,6 +168,8 @@ export const participants: Participant[] = [
     github: "wgrimg",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "5118963854",
@@ -144,6 +178,8 @@ export const participants: Participant[] = [
     github: "ntamblingh",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "7256456855",
@@ -152,6 +188,8 @@ export const participants: Participant[] = [
     github: "tcumberlidgei",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9912326576",
@@ -160,6 +198,8 @@ export const participants: Participant[] = [
     github: "cpadsonj",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3102711916",
@@ -168,6 +208,8 @@ export const participants: Participant[] = [
     github: "pstannettk",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "1486939014",
@@ -176,6 +218,8 @@ export const participants: Participant[] = [
     github: "jcundictl",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "2848954913",
@@ -184,6 +228,8 @@ export const participants: Participant[] = [
     github: "mebbottsm",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "6936926411",
@@ -192,6 +238,8 @@ export const participants: Participant[] = [
     github: "cwilshern",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3398121175",
@@ -200,6 +248,8 @@ export const participants: Participant[] = [
     github: "rnielsono",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "1111389807",
@@ -208,6 +258,8 @@ export const participants: Participant[] = [
     github: "daggetp",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9622596294",
@@ -216,6 +268,8 @@ export const participants: Participant[] = [
     github: "lgilliganq",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "9776624499",
@@ -224,6 +278,8 @@ export const participants: Participant[] = [
     github: "bpollockr",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "1061755757",
@@ -232,6 +288,8 @@ export const participants: Participant[] = [
     github: "lcripins",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "2911567510",
@@ -240,6 +298,8 @@ export const participants: Participant[] = [
     github: "gpadmoret",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3618011368",
@@ -248,6 +308,8 @@ export const participants: Participant[] = [
     github: "mboleru",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "2653233106",
@@ -256,6 +318,8 @@ export const participants: Participant[] = [
     github: "tcobdenv",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "0696623800",
@@ -264,6 +328,8 @@ export const participants: Participant[] = [
     github: "iashfoldw",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "0112716260",
@@ -272,6 +338,8 @@ export const participants: Participant[] = [
     github: "mrollettx",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "4592696363",
@@ -280,6 +348,8 @@ export const participants: Participant[] = [
     github: "kspellworthy",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "5196302623",
@@ -288,6 +358,8 @@ export const participants: Participant[] = [
     github: "dhucquartz",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3775446162",
@@ -296,6 +368,8 @@ export const participants: Participant[] = [
     github: "sklaassens10",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "7517431683",
@@ -304,6 +378,8 @@ export const participants: Participant[] = [
     github: "npenella11",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "3667209386",
@@ -312,6 +388,8 @@ export const participants: Participant[] = [
     github: "gmoxsom12",
     wannaPlay: true,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
   {
     id: "1162164608",
@@ -320,5 +398,7 @@ export const participants: Participant[] = [
     github: "djakubiak13",
     wannaPlay: false,
     gonnaPlay: false,
+    winner: false,
+    groupId: null,
   },
 ]

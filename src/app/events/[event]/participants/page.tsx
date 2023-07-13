@@ -9,7 +9,7 @@ import {
   RoundTitle,
   RoundsList,
 } from "@/components"
-import { EventProps, Round } from "@/shared/types"
+import { EventProps, Round, Participant } from "@/shared/types"
 import { useQuery } from "@tanstack/react-query"
 import { getSelectedParticipants } from "./data-participants"
 
@@ -23,17 +23,15 @@ export default function Participants({ params }: EventProps) {
 
   const selectedParticipants = query.data ?? []
 
-  const participantsPerRound = 4
+  const rounds = selectedParticipants.reduce<Round[]>((acc, participant) => {
+    // TODO: Ajustar o tipo, porque aqui o groupId sempre virá preenchido, nunca será nulo
+    const groupId = participant.groupId === null ? NaN : participant.groupId
 
-  const rounds: Round[] = Array.from(
-    { length: participantsPerRound },
-    (_, index) => ({
-      participants: selectedParticipants.slice(
-        index * participantsPerRound,
-        index * participantsPerRound + participantsPerRound,
-      ),
-    }),
-  )
+    acc[groupId - 1] = acc[groupId - 1] ?? {}
+    acc[groupId - 1].participants = acc[groupId - 1].participants ?? []
+    acc[groupId - 1].participants.push(participant)
+    return acc
+  }, [])
 
   return (
     <section className="font-sans">
