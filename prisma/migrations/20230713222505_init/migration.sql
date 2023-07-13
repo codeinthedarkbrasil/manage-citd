@@ -23,6 +23,8 @@ CREATE TABLE "Play" (
     "eventSlug" TEXT NOT NULL,
     "wannaPlay" BOOLEAN NOT NULL DEFAULT false,
     "gonnaPlay" BOOLEAN NOT NULL DEFAULT false,
+    "groupId" INTEGER,
+    "winner" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
 

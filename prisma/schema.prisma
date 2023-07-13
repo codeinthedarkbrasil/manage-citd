@@ -34,6 +34,8 @@ model Play {
   eventSlug String
   wannaPlay Boolean  @default(false)
   gonnaPlay Boolean  @default(false)
+  groupId   Int?
+  winner    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
