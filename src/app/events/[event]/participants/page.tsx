@@ -9,7 +9,7 @@ import {
   RoundTitle,
   RoundsList,
 } from "@/components"
-import { EventProps, Round, Participant } from "@/shared/types"
+import { EventProps, Round } from "@/shared/types"
 import { useQuery } from "@tanstack/react-query"
 import { getSelectedParticipants } from "./data-participants"
 
