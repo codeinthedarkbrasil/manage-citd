@@ -7,6 +7,8 @@ const participantSchema = z.object({
   github: z.string(),
   wannaPlay: z.coerce.boolean(),
   gonnaPlay: z.coerce.boolean(),
+  winner: z.coerce.boolean(),
+  groupId: z.number().nullable(),
 })
 
 export const arrayOfParticipantsSchema = z.array(participantSchema)

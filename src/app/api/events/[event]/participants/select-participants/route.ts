@@ -18,10 +18,17 @@ export async function GET(
         select: {
           wannaPlay: true,
           gonnaPlay: true,
+          winner: true,
+          groupId: true,
         },
         where: {
           event: {
             slug: params.event,
+          },
+        },
+        orderBy: {
+          groupId: {
+            sort: "asc",
           },
         },
       },
@@ -43,6 +50,8 @@ export async function GET(
     github: user.github,
     wannaPlay: user.play[0].wannaPlay,
     gonnaPlay: user.play[0].gonnaPlay,
+    winner: user.play[0].winner,
+    groupId: user.play[0].groupId,
   }))
 
   return NextResponse.json(result)
@@ -61,6 +70,30 @@ export async function POST(
   const { event } = params
   // TODO: Validar o body com zod
   const body: string[] = await request.json()
+  let group = 1
+  let usersInGroup = 0
+
+  const updateUsers = body.map((id) => {
+    if (usersInGroup === 4) {
+      usersInGroup = 0
+      group++
+    }
+
+    usersInGroup++
+
+    return prisma.play.update({
+      where: {
+        userId_eventSlug: {
+          eventSlug: event,
+          userId: id,
+        },
+      },
+      data: {
+        gonnaPlay: true,
+        groupId: group,
+      },
+    })
+  })
 
   await prisma.$transaction([
     prisma.play.updateMany({
@@ -73,17 +106,7 @@ export async function POST(
       },
     }),
 
-    prisma.play.updateMany({
-      where: {
-        userId: {
-          in: body,
-        },
-        eventSlug: event,
-      },
-      data: {
-        gonnaPlay: true,
-      },
-    }),
+    ...updateUsers,
   ])
 
   return new NextResponse()
