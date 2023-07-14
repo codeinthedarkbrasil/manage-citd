@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEvent, useDeferredValue, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
@@ -34,7 +34,6 @@ export default function Event({ params }: EventProps) {
   const router = useRouter()
 
   const [value, setValue] = useState("")
-  const deferredValue = useDeferredValue(value)
 
   const [isOnlyRaffle, setIsOnlyRaffle] = useState(false)
 
@@ -55,6 +54,9 @@ export default function Event({ params }: EventProps) {
 
   const checkParticipantMutation = useMutation({
     mutationFn: checkParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
   })
 
   const handleCheckParticipant = ({
@@ -68,28 +70,25 @@ export default function Event({ params }: EventProps) {
   }
 
   const handleSetOnlyRaffle = () => {
-    setIsOnlyRaffle((prev) => {
-      const newValue = !prev
-      if (newValue) {
-        setValue("")
-      }
-      return newValue
-    })
+    setIsOnlyRaffle((prev) => !prev)
   }
 
   const participants = query.data ?? []
   const filteredParticipants = participants.filter((p) => {
-    if (isOnlyRaffle) return p.wannaPlay
-    if (deferredValue === "") return true
+    const isOnlyRaffleCondition = isOnlyRaffle ? p.wannaPlay : true
+    if (value === "") return isOnlyRaffleCondition
 
     const name = p.name.toLowerCase()
     const email = p.email.toLowerCase()
     const github = p.github.toLowerCase()
 
-    const search = deferredValue.toLowerCase()
+    const search = value.toLowerCase()
 
     return (
-      name.includes(search) || email.includes(search) || github.includes(search)
+      (name.includes(search) ||
+        email.includes(search) ||
+        github.includes(search)) &&
+      isOnlyRaffleCondition
     )
   })
 
