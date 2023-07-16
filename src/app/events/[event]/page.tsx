@@ -17,9 +17,11 @@ import {
   getParticipants,
   setSelectedParticipants,
   checkParticipant,
+  registerParticipant,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
 import { getRandomInteger } from "./get-random-integer"
+import { RegisterParticipant } from "@/shared/types"
 
 type EventProps = {
   params: {
@@ -64,6 +66,17 @@ export default function Event({ params }: EventProps) {
       queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
     },
   })
+
+  const registerParticipantMutation = useMutation({
+    mutationFn: registerParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
+  })
+
+  const handleRegisterParticipant = async (data: RegisterParticipant) => {
+    registerParticipantMutation.mutateAsync({ data, event })
+  }
 
   const handleCheckParticipant = ({
     id,
@@ -147,7 +160,16 @@ export default function Event({ params }: EventProps) {
                 <ModalTrigger asChild>
                   <Button>Novo Participante</Button>
                 </ModalTrigger>
-                <RegisterParticipantModal />
+                <RegisterParticipantModal
+                  onRegisterParticipant={handleRegisterParticipant}
+                  loading={registerParticipantMutation.isLoading}
+                  success={registerParticipantMutation.isSuccess}
+                  error={
+                    typeof registerParticipantMutation.error === "string"
+                      ? registerParticipantMutation.error
+                      : null
+                  }
+                />
               </Modal>
             </li>
           </ul>

@@ -1,4 +1,8 @@
-import { arrayOfParticipantsSchema, type Participant } from "@/shared/types"
+import {
+  arrayOfParticipantsSchema,
+  type Participant,
+  type RegisterParticipant,
+} from "@/shared/types"
 
 export async function getParticipants(event: string): Promise<Participant[]> {
   const data = await fetch(`/api/events/${event}/participants`)
@@ -52,4 +56,34 @@ export async function checkParticipant({
       "content-type": "application/json",
     },
   })
+}
+
+interface RegisterParticipantInput {
+  event: string
+  data: RegisterParticipant
+}
+
+export async function registerParticipant({
+  event,
+  data,
+}: RegisterParticipantInput) {
+  const result = await fetch(
+    `/api/events/${event}/participants/register-participants`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    },
+  )
+
+  const dataOrError = await result.json()
+
+  if (!result.ok) {
+    const { message } = dataOrError
+    return Promise.reject(message)
+  }
+
+  return { data: dataOrError }
 }
