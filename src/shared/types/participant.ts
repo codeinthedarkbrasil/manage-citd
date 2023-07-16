@@ -14,3 +14,5 @@ const participantSchema = z.object({
 export const arrayOfParticipantsSchema = z.array(participantSchema)
 
 export type Participant = z.infer<typeof participantSchema>
+
+export type RegisterParticipant = Pick<Participant, "name" | "email" | "github">
