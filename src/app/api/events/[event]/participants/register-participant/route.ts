@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma"
 import { NextRequest, NextResponse } from "next/server"
 
-interface RegisterParticipantParams {
+type RegisterParticipantParams = {
   params: {
     event: string
   }
