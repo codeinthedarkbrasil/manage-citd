@@ -75,7 +75,7 @@ export default function Event({ params }: EventProps) {
   })
 
   const handleRegisterParticipant = async (data: RegisterParticipant) => {
-    registerParticipantMutation.mutateAsync({ data, event })
+    registerParticipantMutation.mutate({ data, event })
   }
 
   const handleCheckParticipant = ({
