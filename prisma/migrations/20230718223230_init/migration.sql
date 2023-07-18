@@ -38,3 +38,9 @@ CREATE UNIQUE INDEX "Event_name_key" ON "Event"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Event_slug_key" ON "Event"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_github_key" ON "User"("github");

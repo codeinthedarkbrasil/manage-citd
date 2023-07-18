@@ -22,8 +22,8 @@ model Event {
 model User {
   id        String   @id @default(uuid())
   name      String
-  email     String
-  github    String
+  email     String   @unique
+  github    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   play      Play[]
