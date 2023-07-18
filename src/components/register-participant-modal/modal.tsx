@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { RegisterParticipant, registerParticipantSchema } from "@/shared/types"
 
-interface RegisterParticipantModalProps {
+export type RegisterParticipantModalProps = {
   onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
   loading?: boolean
   success: boolean | null
