@@ -15,20 +15,6 @@ export async function POST(
 
   const { name, email, github } = await request.json()
 
-  const existParticipant = await prisma.user.findFirst({
-    where: {
-      email,
-      github,
-    },
-  })
-
-  if (existParticipant) {
-    return NextResponse.json(
-      { message: "Participante já existe." },
-      { status: 400 },
-    )
-  }
-
   const participant = await prisma.user.create({
     data: {
       name,
