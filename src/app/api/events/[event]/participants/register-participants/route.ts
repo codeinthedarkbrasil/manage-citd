@@ -30,6 +30,6 @@ export async function POST(
 
   return NextResponse.json({
     data: participant,
-    status: 200,
+    status: 201,
   })
 }
