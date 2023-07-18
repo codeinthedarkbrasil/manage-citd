@@ -15,4 +15,10 @@ export const arrayOfParticipantsSchema = z.array(participantSchema)
 
 export type Participant = z.infer<typeof participantSchema>
 
-export type RegisterParticipant = Pick<Participant, "name" | "email" | "github">
+export const registerParticipantSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z.string().email().min(1, { message: "Email is required" }),
+  github: z.string().min(1, { message: "Github user is required" }),
+})
+
+export type RegisterParticipant = z.infer<typeof registerParticipantSchema>

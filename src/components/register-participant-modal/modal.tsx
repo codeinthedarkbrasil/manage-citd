@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import { Button } from "../button"
 import { Input } from "../input"
 import { ModalContent } from "../modal"
@@ -14,19 +16,11 @@ import {
 
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { useEffect, useState } from "react"
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email().min(1, { message: "Email is required" }),
-  github: z.string().min(1, { message: "Github user is required" }),
-})
-
-type FormSchemaValues = z.infer<typeof formSchema>
+import { RegisterParticipant, registerParticipantSchema } from "@/shared/types"
 
 interface RegisterParticipantModalProps {
-  onRegisterParticipant: (data: FormSchemaValues) => Promise<void>
+  onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
   loading?: boolean
   success: boolean | null
   error: string | null
@@ -43,8 +37,8 @@ export function RegisterParticipantModal({
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormSchemaValues>({
-    resolver: zodResolver(formSchema),
+  } = useForm<RegisterParticipant>({
+    resolver: zodResolver(registerParticipantSchema),
   })
 
   const [internalSuccess, setInternalSuccess] = useState(success)
@@ -61,7 +55,7 @@ export function RegisterParticipantModal({
     }
   }, [success, reset])
 
-  const handleRegisterParticpant: SubmitHandler<FormSchemaValues> = async (
+  const handleRegisterParticpant: SubmitHandler<RegisterParticipant> = async (
     data,
   ) => {
     await onRegisterParticipant(data)
