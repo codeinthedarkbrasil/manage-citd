@@ -82,6 +82,7 @@ export async function registerParticipant({
 
   if (!result.ok) {
     const { message } = dataOrError
+    // TODO: handle the error in the future
     return Promise.reject(message)
   }
 
