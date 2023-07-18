@@ -68,7 +68,7 @@ export async function registerParticipant({
   data,
 }: RegisterParticipantInput) {
   const result = await fetch(
-    `/api/events/${event}/participants/register-participants`,
+    `/api/events/${event}/participants/register-participant`,
     {
       method: "POST",
       body: JSON.stringify(data),
