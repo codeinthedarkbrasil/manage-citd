@@ -58,7 +58,7 @@ export async function checkParticipant({
   })
 }
 
-interface RegisterParticipantInput {
+type RegisterParticipantInput = {
   event: string
   data: RegisterParticipant
 }
