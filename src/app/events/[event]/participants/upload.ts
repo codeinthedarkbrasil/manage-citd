@@ -31,12 +31,7 @@ export const upload = async (data: FormData) => {
 
   const bytes = await file.arrayBuffer()
   const csv = Buffer.from(bytes).toString()
-  try {
-    await saveInDb({ csv, event })
-  } catch (e) {
-    // TODO
-    console.log("deu ruim na hora de salvar no banco:", e)
-  }
+  await saveInDb({ csv, event })
 }
 
 type SaveInDbInput = {
@@ -46,14 +41,15 @@ type SaveInDbInput = {
 
 async function saveInDb({ csv, event }: SaveInDbInput) {
   const participants = csv.split("\n").slice(1)
-  const promiseParticipants = participants.map((line) => {
-    const [name, email, github] = line.split(";")
+  const participantsFiltered = participants.filter(Boolean)
+
+  const promiseParticipants = participantsFiltered.map((line) => {
+    const [, , , name, lastName, email] = line.split(",")
 
     return prisma.user.create({
       data: {
-        name,
-        email,
-        github,
+        name: name.trim() + " " + lastName.trim(),
+        email: email.trim(),
         play: {
           create: {
             eventSlug: event,
@@ -62,5 +58,9 @@ async function saveInDb({ csv, event }: SaveInDbInput) {
       },
     })
   })
-  return Promise.all(promiseParticipants)
+
+  const result = await Promise.allSettled(promiseParticipants)
+  result
+    .filter((r) => r.status === "rejected")
+    .forEach((r) => console.log("Deu ruim na hora de salvar no banco:", r))
 }

@@ -12,7 +12,7 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "github" TEXT NOT NULL,
+    "github" TEXT NOT NULL DEFAULT 'ghost',
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
@@ -29,7 +29,7 @@ CREATE TABLE "Play" (
     "updatedAt" DATETIME NOT NULL,
 
     PRIMARY KEY ("userId", "eventSlug"),
-    CONSTRAINT "Play_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Play_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "Play_eventSlug_fkey" FOREIGN KEY ("eventSlug") REFERENCES "Event" ("slug") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -41,6 +41,3 @@ CREATE UNIQUE INDEX "Event_slug_key" ON "Event"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_github_key" ON "User"("github");
