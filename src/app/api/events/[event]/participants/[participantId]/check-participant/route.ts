@@ -25,6 +25,9 @@ export async function POST(
     },
     data: {
       wannaPlay: body.checked,
+      gonnaPlay: body.checked === false ? false : undefined,
+      groupId: body.checked === false ? null : undefined,
+      winner: body.checked === false ? false : undefined,
     },
   })
 
