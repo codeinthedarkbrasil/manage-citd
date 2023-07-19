@@ -1,10 +1,6 @@
-type Participant = {
-  name: string
-  email: string
-  github: string
-}
+import { RegisterParticipant } from "@/shared/types"
 
-export const participants: Participant[] = [
+export const participants: RegisterParticipant[] = [
   {
     name: "Eal Nottle",
     email: "enottle0@php.net",

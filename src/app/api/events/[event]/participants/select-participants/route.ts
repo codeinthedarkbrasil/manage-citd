@@ -103,6 +103,8 @@ export async function POST(
       },
       data: {
         gonnaPlay: false,
+        groupId: null,
+        winner: false,
       },
     }),
 
