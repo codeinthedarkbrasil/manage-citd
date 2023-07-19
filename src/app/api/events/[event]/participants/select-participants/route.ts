@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/prisma"
-import { Participant } from "@/shared/types"
+import { ParticipantInGroup } from "@/shared/types"
 
 type GetSelectedParticipantsInput = {
   params: {
@@ -43,16 +43,19 @@ export async function GET(
     },
   })
 
-  const result: Participant[] = users.map((user) => ({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    github: user.github,
-    wannaPlay: user.play[0].wannaPlay,
-    gonnaPlay: user.play[0].gonnaPlay,
-    winner: user.play[0].winner,
-    groupId: user.play[0].groupId,
-  }))
+  const result: ParticipantInGroup[] = users.map((user) => {
+    const groupId = user.play[0].groupId ?? -1
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      github: user.github,
+      wannaPlay: user.play[0].wannaPlay,
+      gonnaPlay: user.play[0].gonnaPlay,
+      winner: user.play[0].winner,
+      groupId,
+    }
+  })
 
   return NextResponse.json(result)
 }

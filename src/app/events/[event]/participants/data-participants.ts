@@ -1,6 +1,8 @@
 import {
   arrayOfParticipantsSchema,
+  arrayOfParticipantsInGroupSchema,
   type Participant,
+  type ParticipantInGroup,
   type RegisterParticipant,
 } from "@/shared/types"
 
@@ -12,12 +14,12 @@ export async function getParticipants(event: string): Promise<Participant[]> {
 
 export async function getSelectedParticipants(
   event: string,
-): Promise<Participant[]> {
+): Promise<ParticipantInGroup[]> {
   const data = await fetch(
     `/api/events/${event}/participants/select-participants`,
   )
   const selectedParticipants = await data.json()
-  return arrayOfParticipantsSchema.parse(selectedParticipants)
+  return arrayOfParticipantsInGroupSchema.parse(selectedParticipants)
 }
 
 type SetSelectedParticipantsInput = {
@@ -87,4 +89,19 @@ export async function registerParticipant({
   }
 
   return { data: dataOrError }
+}
+
+type SetWinnerInput = {
+  userId: string
+  event: string
+  groupId: number
+}
+export async function setWinner({ userId, event, groupId }: SetWinnerInput) {
+  await fetch(`/api/events/${event}/participants/${userId}/set-winner`, {
+    method: "POST",
+    body: JSON.stringify({ groupId }),
+    headers: {
+      "content-type": "application/json",
+    },
+  })
 }

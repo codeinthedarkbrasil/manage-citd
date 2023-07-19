@@ -10,22 +10,31 @@ import {
   RoundsList,
 } from "@/components"
 import { EventProps, Round } from "@/shared/types"
-import { useQuery } from "@tanstack/react-query"
-import { getSelectedParticipants } from "./data-participants"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { getSelectedParticipants, setWinner } from "./data-participants"
 
 export default function Participants({ params }: EventProps) {
   const { event } = params
+  const queryClient = useQueryClient()
 
   const query = useQuery({
     queryKey: ["selected-participants", { event }],
     queryFn: () => getSelectedParticipants(event),
   })
 
+  const winnerMutation = useMutation({
+    mutationFn: setWinner,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["selected-participants", { event }],
+      })
+    },
+  })
+
   const selectedParticipants = query.data ?? []
 
   const rounds = selectedParticipants.reduce<Round[]>((acc, participant) => {
-    // TODO: Ajustar o tipo, porque aqui o groupId sempre virá preenchido, nunca será nulo
-    const groupId = participant.groupId === null ? NaN : participant.groupId
+    const groupId = participant.groupId
 
     acc[groupId - 1] = acc[groupId - 1] ?? {}
     acc[groupId - 1].participants = acc[groupId - 1].participants ?? []
@@ -45,6 +54,17 @@ export default function Participants({ params }: EventProps) {
     },
     { participants: [] },
   )
+
+  type HandleSetWinnerInput = {
+    userId: string
+    event: string
+    groupId: number
+  }
+  const handleSetWinner =
+    ({ userId, event, groupId }: HandleSetWinnerInput) =>
+    () => {
+      winnerMutation.mutate({ userId, event, groupId })
+    }
 
   return (
     <section className="font-sans">
@@ -67,10 +87,21 @@ export default function Participants({ params }: EventProps) {
                     lined={index !== round.participants.length - 1}
                   />
                   <ParticipantName>{participant.name}</ParticipantName>
-                  <ParticipantName>
-                    <button>Definir vencedor</button>
+
+                  <p className="my-1 text-primary-100">
+                    <button
+                      onClick={handleSetWinner({
+                        userId: participant.id,
+                        event,
+                        groupId: participant.groupId,
+                      })}
+                    >
+                      Definir vencedor
+                    </button>
+                  </p>
+                  <p className="text-primary-100">
                     <button>Selecionar outro</button>
-                  </ParticipantName>
+                  </p>
                 </ParticipantItem>
               ))}
             </ParticipantsList>

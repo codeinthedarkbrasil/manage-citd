@@ -1,5 +1,5 @@
-import { Participant } from "./participant";
+import { ParticipantInGroup } from "./participant"
 
 export type Round = {
-  participants: Participant[];
-};
+  participants: ParticipantInGroup[]
+}
