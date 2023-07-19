@@ -142,18 +142,17 @@ export default function Event({ params }: EventProps) {
         </h1>
         <nav>
           <ul className="flex gap-3">
-            <li className="relative">
-              <form action={upload} className="absolute">
+            <li className="group relative flex w-[130px] overflow-hidden ">
+              <form action={upload} className="absolute top-[6px] z-[hidden]">
                 <input
                   type="file"
                   name="file"
-                  className="text-neutral-900"
+                  className="h-[30px]  text-[16px] text-neutral-100  "
                   onChange={handleFileUpload}
                 />
-
                 <input type="hidden" name="event" value={event} />
               </form>
-              <Button variant="text">Importar CSV</Button>
+              <Button variant="file" >Importar CSV</Button>
             </li>
             <li>
               <Modal>

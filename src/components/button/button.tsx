@@ -24,6 +24,7 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-primary-100 text-neutral-100 hover:bg-primary-100/80",
         text: "text-primary-100 hover:bg-primary-100 hover:text-neutral-100",
+        file: "pointer-events-none absolute z-[base] w-full bg-neutral-100 text-primary-100 group-hover:cursor-pointer group-hover:bg-primary-100 group-hover:text-neutral-100",
       },
       size: {
         sm: "h-[42px] rounded-1 px-2",
