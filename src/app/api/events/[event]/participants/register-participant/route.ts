@@ -13,13 +13,18 @@ export async function POST(
 ) {
   const { event } = params
 
-  const { name, email, github } = await request.json()
+  // TODO: validar com Zod
+  const {
+    name,
+    email,
+    github,
+  }: { name: string; email: string; github?: string } = await request.json()
 
   const participant = await prisma.user.create({
     data: {
       name,
       email,
-      github,
+      github: !!github ? github : undefined,
       play: {
         create: {
           eventSlug: event,

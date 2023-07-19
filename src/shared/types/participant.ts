@@ -37,7 +37,7 @@ export type Participant = z.infer<typeof participantOutsideGroupSchema>
 export const registerParticipantSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email().min(1, { message: "Email is required" }),
-  github: z.string().min(1, { message: "Github user is required" }),
+  github: z.string().optional(),
 })
 
 export type RegisterParticipant = z.infer<typeof registerParticipantSchema>
