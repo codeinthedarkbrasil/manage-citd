@@ -33,6 +33,19 @@ export default function Participants({ params }: EventProps) {
     return acc
   }, [])
 
+  const finalRound = rounds.reduce(
+    (acc, round) => {
+      const winner = round.participants.find(
+        (participant) => participant.winner === true,
+      )
+      if (winner) {
+        acc.participants.push(winner)
+      }
+      return acc
+    },
+    { participants: [] },
+  )
+
   return (
     <section className="font-sans">
       <p className="text-body-xs leading-normal text-neutral-500 underline">
@@ -54,11 +67,33 @@ export default function Participants({ params }: EventProps) {
                     lined={index !== round.participants.length - 1}
                   />
                   <ParticipantName>{participant.name}</ParticipantName>
+                  <ParticipantName>
+                    <button>Definir vencedor</button>
+                    <button>Selecionar outro</button>
+                  </ParticipantName>
                 </ParticipantItem>
               ))}
             </ParticipantsList>
           </RoundItem>
         ))}
+      </RoundsList>
+
+      <RoundsList>
+        <RoundItem>
+          <RoundTitle>Final</RoundTitle>
+          <ParticipantsList>
+            {finalRound.participants.map((participant, index) => (
+              <ParticipantItem key={participant.id}>
+                <ParticipantImage
+                  src={`https://github.com/${participant.github}.png`}
+                  alt={`${participant.name} photo`}
+                  lined={index !== finalRound.participants.length - 1}
+                />
+                <ParticipantName>{participant.name}</ParticipantName>
+              </ParticipantItem>
+            ))}
+          </ParticipantsList>
+        </RoundItem>
       </RoundsList>
     </section>
   )
