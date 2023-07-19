@@ -9,16 +9,10 @@ export default function Events() {
         <Button>Novo evento</Button>
       </div>
       <div className="grid grid-cols-3 gap-2">
-        <Card>
-          <div className="px-2 py-3">
-            <CardTitle>Code in The Dark 2022</CardTitle>
-            <CardText>277 Participantes</CardText>
-          </div>
-        </Card>
         <Link href="/events/2023">
           <Card>
             <div className="px-2 py-3">
-              <CardTitle>Code in The Dark 2022</CardTitle>
+              <CardTitle>Code in The Dark 2023</CardTitle>
               <CardText>277 Participantes</CardText>
             </div>
           </Card>
