@@ -20,8 +20,8 @@ import {
   registerParticipant,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
-import { getRandomInteger } from "./get-random-integer"
-import { RegisterParticipant } from "@/shared/types"
+import { getRandomInteger } from "@/lib/get-random-integer"
+import { Participant, RegisterParticipant } from "@/shared/types"
 
 type EventProps = {
   params: {
@@ -152,7 +152,7 @@ export default function Event({ params }: EventProps) {
                 />
                 <input type="hidden" name="event" value={event} />
               </form>
-              <Button variant="file" >Importar CSV</Button>
+              <Button variant="file">Importar CSV</Button>
             </li>
             <li>
               <Modal>
@@ -192,7 +192,7 @@ export default function Event({ params }: EventProps) {
               <Checkbox
                 id="raffle-participants"
                 checked={isOnlyRaffle}
-                onCheckedChange={() => handleSetOnlyRaffle()}
+                onCheckedChange={handleSetOnlyRaffle}
               />
               <label
                 htmlFor="raffle-participants"
