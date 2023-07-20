@@ -11,7 +11,11 @@ import {
 } from "@/components"
 import { EventProps, Round } from "@/shared/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { getSelectedParticipants, setWinner } from "./data-participants"
+import {
+  getSelectedParticipants,
+  selectNewRandomPlayer,
+  setWinner,
+} from "./data-participants"
 
 export default function Participants({ params }: EventProps) {
   const { event } = params
@@ -24,6 +28,15 @@ export default function Participants({ params }: EventProps) {
 
   const winnerMutation = useMutation({
     mutationFn: setWinner,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["selected-participants", { event }],
+      })
+    },
+  })
+
+  const selectNewRandomPlayerMutation = useMutation({
+    mutationFn: selectNewRandomPlayer,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["selected-participants", { event }],
@@ -60,10 +73,22 @@ export default function Participants({ params }: EventProps) {
     event: string
     groupId: number
   }
+
   const handleSetWinner =
     ({ userId, event, groupId }: HandleSetWinnerInput) =>
     () => {
       winnerMutation.mutate({ userId, event, groupId })
+    }
+
+  type HandleSelectNewRandomPlayerInput = {
+    userId: string
+    event: string
+    groupId: number
+  }
+  const handleSelectNewRandomPlayer =
+    ({ userId, event, groupId }: HandleSelectNewRandomPlayerInput) =>
+    () => {
+      selectNewRandomPlayerMutation.mutate({ userId, event, groupId })
     }
 
   return (
@@ -100,7 +125,15 @@ export default function Participants({ params }: EventProps) {
                     </button>
                   </p>
                   <p className="text-primary-100">
-                    <button>Selecionar outro</button>
+                    <button
+                      onClick={handleSelectNewRandomPlayer({
+                        userId: participant.id,
+                        event,
+                        groupId: participant.groupId,
+                      })}
+                    >
+                      Selecionar outro
+                    </button>
                   </p>
                 </ParticipantItem>
               ))}

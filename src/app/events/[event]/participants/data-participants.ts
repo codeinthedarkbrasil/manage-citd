@@ -105,3 +105,25 @@ export async function setWinner({ userId, event, groupId }: SetWinnerInput) {
     },
   })
 }
+
+type SelectNewRandomPlayerInput = {
+  userId: string
+  event: string
+  groupId: number
+}
+export async function selectNewRandomPlayer({
+  userId,
+  event,
+  groupId,
+}: SelectNewRandomPlayerInput) {
+  await fetch(
+    `/api/events/${event}/participants/${userId}/select-new-random-player`,
+    {
+      method: "POST",
+      body: JSON.stringify({ groupId }),
+      headers: {
+        "content-type": "application/json",
+      },
+    },
+  )
+}
