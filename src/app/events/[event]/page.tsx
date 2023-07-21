@@ -18,10 +18,11 @@ import {
   setSelectedParticipants,
   checkParticipant,
   registerParticipant,
+  removeParticipant,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
 import { getRandomInteger } from "@/lib/get-random-integer"
-import { Participant, RegisterParticipant } from "@/shared/types"
+import { RegisterParticipant } from "@/shared/types"
 
 type EventProps = {
   params: {
@@ -69,6 +70,13 @@ export default function Event({ params }: EventProps) {
 
   const registerParticipantMutation = useMutation({
     mutationFn: registerParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
+  })
+
+  const removeParticipantMutation = useMutation({
+    mutationFn: removeParticipant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
     },
@@ -132,6 +140,10 @@ export default function Event({ params }: EventProps) {
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.form?.submit()
+  }
+
+  const handleRemoveParticipant = (id: string) => {
+    removeParticipantMutation.mutate({ id, event })
   }
 
   return (
@@ -214,6 +226,7 @@ export default function Event({ params }: EventProps) {
         event={event}
         participants={filteredParticipants}
         onCheckParticipant={handleCheckParticipant}
+        onRemoveParticipant={handleRemoveParticipant}
       />
     </main>
   )

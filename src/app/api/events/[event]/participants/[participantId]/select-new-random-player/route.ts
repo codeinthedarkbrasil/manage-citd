@@ -23,7 +23,7 @@ export async function POST(
       },
       where: {
         play: {
-          every: {
+          some: {
             wannaPlay: true,
             gonnaPlay: false,
           },

@@ -13,18 +13,17 @@ export async function GET(
   { params }: GetParticipantsInput,
 ): Promise<NextResponse<Participant[]>> {
   const users = await prisma.user.findMany({
+    where: {
+      play: {
+        some: {
+          eventSlug: params.event,
+        },
+      },
+    },
     include: {
       play: {
-        select: {
-          wannaPlay: true,
-          gonnaPlay: true,
-          winner: true,
-          groupId: true,
-        },
         where: {
-          event: {
-            slug: params.event,
-          },
+          eventSlug: params.event,
         },
       },
     },

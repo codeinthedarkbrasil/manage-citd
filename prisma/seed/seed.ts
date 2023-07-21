@@ -1,16 +1,29 @@
 import { prisma } from "@/prisma"
 import { participants } from "./participants"
+import { getRandomInteger } from "@/lib"
 
 async function main() {
-  const event = await prisma.event.create({
+  const event1 = await prisma.event.create({
+    data: {
+      name: "Code in the Dark 2022",
+      slug: "2022",
+    },
+  })
+
+  const event2 = await prisma.event.create({
     data: {
       name: "Code in the Dark 2023",
       slug: "2023",
     },
   })
 
-  const promiseParticipants = participants.map((data) =>
-    prisma.user.create({
+  const events = [event1, event2]
+
+  const promiseParticipants = participants.map((data) => {
+    const rand = getRandomInteger(1)
+
+    const event = events[rand]
+    return prisma.user.create({
       data: {
         ...data,
         play: {
@@ -19,8 +32,8 @@ async function main() {
           },
         },
       },
-    }),
-  )
+    })
+  })
   await Promise.all(promiseParticipants)
 }
 
