@@ -127,3 +127,13 @@ export async function selectNewRandomPlayer({
     },
   )
 }
+
+type RemoveParticipantInput = {
+  id: string
+  event: string
+}
+export async function removeParticipant({ id, event }: RemoveParticipantInput) {
+  await fetch(`/api/events/${event}/participants/${id}/remove-participant`, {
+    method: "DELETE",
+  })
+}
