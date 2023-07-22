@@ -36,5 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 # sqlite
-prisma/dev.db*
+prisma/db.dev
 frontin.csv
