@@ -1,4 +1,5 @@
 const radiusAndSpacing = {
+  0: "0",
   1: "8px",
   1.5: "12px",
   2: "16px",
