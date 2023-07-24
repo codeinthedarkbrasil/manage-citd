@@ -28,11 +28,13 @@ const participantInGroupSchema = z.intersection(
 )
 
 export const arrayOfParticipantsSchema = z.array(participantOutsideGroupSchema)
+
 export const arrayOfParticipantsInGroupSchema = z.array(
   participantInGroupSchema,
 )
 
 export type Participant = z.infer<typeof participantOutsideGroupSchema>
+export type ParticipantInGroup = z.infer<typeof participantInGroupSchema>
 
 export const registerParticipantSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -42,4 +44,12 @@ export const registerParticipantSchema = z.object({
 
 export type RegisterParticipant = z.infer<typeof registerParticipantSchema>
 
-export type ParticipantInGroup = z.infer<typeof participantInGroupSchema>
+export const participantSchemaWithId = z.object({
+  id: z.string().uuid(),
+})
+export const editParticipantSchema = z.intersection(
+  participantSchemaWithId,
+  registerParticipantSchema,
+)
+
+export type EditParticipant = z.infer<typeof editParticipantSchema>

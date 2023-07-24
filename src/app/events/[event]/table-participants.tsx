@@ -1,5 +1,4 @@
-import Link from "next/link"
-import type { Participant } from "@/shared/types"
+import type { EditParticipant, Participant } from "@/shared/types"
 import {
   DebouncedCheckbox,
   Table,
@@ -9,20 +8,20 @@ import {
   TableHead,
   TableCell,
 } from "@/components"
-import { Trash2 as RemoveIcon, Edit as EditIcon } from "lucide-react"
+import { Trash2 as RemoveIcon } from "lucide-react"
 
 type TableBodyProps = {
-  event: string
   participants: Participant[]
   onCheckParticipant: (args: { id: string; checked: boolean }) => void
   onRemoveParticipant: (id: string) => void
+  editParticipantModal: (data: EditParticipant) => React.ReactNode
 }
 
 export function TableParticipants({
-  event,
   participants,
   onCheckParticipant,
   onRemoveParticipant,
+  editParticipantModal,
 }: TableBodyProps) {
   return (
     <Table>
@@ -69,11 +68,8 @@ export function TableParticipants({
                     <RemoveIcon className="h-2 w-2 text-danger-100" />
                   </button>
                 )}
-                <Link
-                  href={`/events/${event}/participants/${participant.id}/edit`}
-                >
-                  <EditIcon className="h-2 w-2 text-neutral-500" />
-                </Link>
+
+                {editParticipantModal(participant)}
               </div>
             </TableCell>
           </TableRow>

@@ -15,28 +15,30 @@ import {
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { RegisterParticipant, registerParticipantSchema } from "@/shared/types"
+import { EditParticipant, editParticipantSchema } from "@/shared/types"
 
-export type RegisterParticipantModalProps = {
-  onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
+export type EditParticipantModalProps = {
+  onEditParticipant: (data: EditParticipant) => Promise<void>
   loading?: boolean
   success: boolean | null
   error: string | null
+  initialData: EditParticipant
 }
 
-export function RegisterParticipantModal({
-  onRegisterParticipant,
+export function EditParticipantModal({
+  onEditParticipant,
   loading,
   success,
   error,
-}: RegisterParticipantModalProps) {
+  initialData,
+}: EditParticipantModalProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<RegisterParticipant>({
-    resolver: zodResolver(registerParticipantSchema),
+  } = useForm<EditParticipant>({
+    resolver: zodResolver(editParticipantSchema),
   })
 
   const [internalSuccess, setInternalSuccess] = useState(success)
@@ -53,10 +55,10 @@ export function RegisterParticipantModal({
     }
   }, [success, reset])
 
-  const handleRegisterParticipant: SubmitHandler<RegisterParticipant> = async (
+  const handleEditParticipant: SubmitHandler<EditParticipant> = async (
     data,
   ) => {
-    await onRegisterParticipant(data)
+    await onEditParticipant(data)
   }
 
   const handleBackToForm = () => {
@@ -101,26 +103,30 @@ export function RegisterParticipantModal({
         {!internalSuccess && !internalError && (
           <>
             <h2 className="font-sans text-[1.6rem] font-semibold text-neutral-900">
-              Novo Participante
+              Editar Participante
             </h2>
             <form
               className="mt-[24px] flex flex-col gap-3"
-              onSubmit={handleSubmit(handleRegisterParticipant)}
+              onSubmit={handleSubmit(handleEditParticipant)}
             >
+              <input type="hidden" value={initialData.id} {...register("id")} />
               <Input
                 placeholder="Nome"
+                defaultValue={initialData.name}
                 icon={<User className="h-[16px] w-[16px] text-neutral-500" />}
                 error={errors.name?.message}
                 {...register("name")}
               />
               <Input
                 placeholder="Email"
+                defaultValue={initialData.email}
                 icon={<AtSign className="h-[16px] w-[16px] text-neutral-500" />}
                 error={errors.email?.message}
                 {...register("email")}
               />
               <Input
                 placeholder="Github"
+                defaultValue={initialData.github}
                 icon={<Github className="h-[16px] w-[16px] text-neutral-500" />}
                 error={errors.github?.message}
                 {...register("github")}
