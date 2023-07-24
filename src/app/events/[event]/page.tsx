@@ -1,28 +1,30 @@
 "use client"
 
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useCallback, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableParticipants } from "./table-participants"
 import {
   Button,
   Checkbox,
+  EditParticipantModal,
   Input,
   Modal,
   ModalTrigger,
   RegisterParticipantModal,
 } from "@/components"
-import { Filter as FilterIcon } from "lucide-react"
+import { Filter as FilterIcon, Edit as EditIcon } from "lucide-react"
 import {
   getParticipants,
   setSelectedParticipants,
   checkParticipant,
   registerParticipant,
   removeParticipant,
+  editParticipant,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
 import { getRandomInteger } from "@/lib/get-random-integer"
-import { RegisterParticipant } from "@/shared/types"
+import { EditParticipant, RegisterParticipant } from "@/shared/types"
 
 type EventProps = {
   params: {
@@ -82,9 +84,42 @@ export default function Event({ params }: EventProps) {
     },
   })
 
+  const editParticipantMutation = useMutation({
+    mutationFn: editParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
+  })
+
   const handleRegisterParticipant = async (data: RegisterParticipant) => {
     registerParticipantMutation.mutate({ data, event })
   }
+
+  const handleEditParticipant = useCallback(
+    async (data: EditParticipant) => {
+      console.log("edit participant:", data)
+      await editParticipantMutation.mutateAsync({ data, event })
+    },
+    [editParticipantMutation, event],
+  )
+
+  const editParticipantModal = useCallback(
+    (participant: EditParticipant) => (
+      <EditParticipantModalContainer
+        participant={participant}
+        onEditParticipant={handleEditParticipant}
+        error={editParticipantMutation.error}
+        isError={editParticipantMutation.isError}
+        isLoading={editParticipantMutation.isLoading}
+      />
+    ),
+    [
+      editParticipantMutation.error,
+      editParticipantMutation.isLoading,
+      editParticipantMutation.isError,
+      handleEditParticipant,
+    ],
+  )
 
   const handleCheckParticipant = ({
     id,
@@ -223,11 +258,48 @@ export default function Event({ params }: EventProps) {
       </div>
 
       <TableParticipants
-        event={event}
         participants={filteredParticipants}
         onCheckParticipant={handleCheckParticipant}
         onRemoveParticipant={handleRemoveParticipant}
+        editParticipantModal={editParticipantModal}
       />
     </main>
+  )
+}
+
+type EditParticipantModalContainerProps = {
+  participant: EditParticipant
+  onEditParticipant: (data: EditParticipant) => Promise<void>
+  isLoading: boolean
+  isError: boolean
+  error: unknown
+}
+function EditParticipantModalContainer({
+  participant,
+  onEditParticipant,
+  isLoading,
+  isError,
+  error,
+}: EditParticipantModalContainerProps) {
+  const [openEditModal, setOpenEditModal] = useState(false)
+
+  const handleEditParticipant = async (participant: EditParticipant) => {
+    await onEditParticipant(participant)
+    setOpenEditModal(false)
+  }
+
+  return (
+    <Modal open={openEditModal} onOpenChange={setOpenEditModal}>
+      <ModalTrigger>
+        <EditIcon className="h-2 w-2 text-neutral-500" />
+      </ModalTrigger>
+      <EditParticipantModal
+        onEditParticipant={handleEditParticipant}
+        loading={isLoading}
+        success={isError}
+        error={typeof error === "string" ? error : null}
+        initialData={participant}
+      />
+    </Modal>
   )
 }

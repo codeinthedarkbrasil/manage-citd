@@ -1,3 +1,5 @@
+"use client"
+
 export * from "./sidebar"
 export * from "./rounds-list"
 export * from "./sidebar"
@@ -8,4 +10,5 @@ export * from "./table"
 export * from "./input"
 export * from "./modal"
 export * from "./register-participant-modal"
+export * from "./edit-participant-modal"
 export * from "./spinner"
