@@ -3,14 +3,7 @@ import { useEffect, useState } from "react"
 import { Button } from "../button"
 import { Input } from "../input"
 import { ModalContent } from "../modal"
-import {
-  User,
-  AtSign,
-  Github,
-  ArrowLeft,
-  CheckCircle,
-  XCircle,
-} from "lucide-react"
+import { User, AtSign, Github, ArrowLeft, XCircle } from "lucide-react"
 
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -41,11 +34,9 @@ export function EditParticipantModal({
     resolver: zodResolver(editParticipantSchema),
   })
 
-  const [internalSuccess, setInternalSuccess] = useState(success)
   const [internalError, setInternalError] = useState(error)
 
   useEffect(() => {
-    setInternalSuccess(success)
     setInternalError(error)
   }, [success, error])
 
@@ -62,14 +53,13 @@ export function EditParticipantModal({
   }
 
   const handleBackToForm = () => {
-    setInternalSuccess(null)
     setInternalError(null)
   }
 
   return (
     <ModalContent>
       <div className="relative flex w-full min-w-[380px] flex-col justify-center px-[32px] py-[42px]">
-        {(internalSuccess || internalError) && (
+        {internalError && (
           <>
             <div className="absolute left-[24px] top-[24px]">
               <Button variant="text" onClick={handleBackToForm}>
@@ -79,14 +69,6 @@ export function EditParticipantModal({
 
             <div className="mt-[42px] flex flex-col gap-4">
               <div className="flex flex-col items-center justify-center gap-2">
-                {internalSuccess && (
-                  <>
-                    <CheckCircle className="h-[64px] w-[64px] text-primary-100" />
-                    <p className="font-sans text-[1.8rem] font-semibold text-neutral-900">
-                      Registrado com sucesso!
-                    </p>
-                  </>
-                )}
                 {!!internalError && (
                   <>
                     <XCircle className="h-[64px] w-[64px] text-danger-100" />
@@ -100,7 +82,7 @@ export function EditParticipantModal({
           </>
         )}
 
-        {!internalSuccess && !internalError && (
+        {!internalError && (
           <>
             <h2 className="font-sans text-[1.6rem] font-semibold text-neutral-900">
               Editar Participante
