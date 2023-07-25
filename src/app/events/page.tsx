@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   Button,
   Card,
@@ -11,15 +11,29 @@ import {
   ModalTrigger,
   RegisterEventModal,
 } from "@/components"
-import { getEvents } from "./data-events"
+import { getEvents, registerEvent } from "./data-events"
+import { RegisterEvent } from "@/shared/types"
 
 export default function Events() {
+  const queryClient = useQueryClient()
+
   const eventsQuery = useQuery({
     queryKey: ["events"],
     queryFn: getEvents,
   })
 
+  const registerEventMutation = useMutation({
+    mutationFn: registerEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] })
+    },
+  })
+
   const events = eventsQuery.data ?? []
+
+  const handleRegisterEvent = async (data: RegisterEvent) => {
+    registerEventMutation.mutate(data)
+  }
 
   return (
     <div className="flex flex-col justify-between gap-4 font-sans text-neutral-900">
@@ -31,10 +45,14 @@ export default function Events() {
           </ModalTrigger>
 
           <RegisterEventModal
-            onRegisterEvent={async () => {}}
-            loading={false}
-            success={false}
-            error={null}
+            onRegisterEvent={handleRegisterEvent}
+            loading={registerEventMutation.isLoading}
+            success={registerEventMutation.isSuccess}
+            error={
+              typeof registerEventMutation.error === "string"
+                ? registerEventMutation.error
+                : null
+            }
           />
         </Modal>
       </div>
