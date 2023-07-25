@@ -1,4 +1,5 @@
 import { z } from "zod"
+import slugify from "slugify"
 
 // TODO: Remover (ou ver o que fazer)
 export type EventProps = {
@@ -9,7 +10,12 @@ export type EventProps = {
 
 export const registerEventSchema = z.object({
   name: z.string(),
-  slug: z.string(),
+  slug: z
+    .string()
+    .refine(
+      (val) => val === slugify(val, { trim: true, lower: true }),
+      "Slug inválido",
+    ),
 })
 
 export type RegisterEvent = z.infer<typeof registerEventSchema>
