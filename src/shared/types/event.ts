@@ -14,7 +14,7 @@ export const registerEventSchema = z.object({
 
 export type RegisterEvent = z.infer<typeof registerEventSchema>
 
-const eventSchema = z.object({
+export const eventSchema = z.object({
   id: z.string(),
   name: z.string(),
   slug: z.string(),
