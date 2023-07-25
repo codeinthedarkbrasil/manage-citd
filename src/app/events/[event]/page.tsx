@@ -202,21 +202,12 @@ export default function Event({ params }: EventProps) {
               <Button variant="file">Importar CSV</Button>
             </li>
             <li>
-              <Modal>
-                <ModalTrigger asChild>
-                  <Button>Novo Participante</Button>
-                </ModalTrigger>
-                <RegisterParticipantModal
-                  onRegisterParticipant={handleRegisterParticipant}
-                  loading={registerParticipantMutation.isLoading}
-                  success={registerParticipantMutation.isSuccess}
-                  error={
-                    typeof registerParticipantMutation.error === "string"
-                      ? registerParticipantMutation.error
-                      : null
-                  }
-                />
-              </Modal>
+              <RegisterParticipantModalContainer
+                onRegisterParticipant={handleRegisterParticipant}
+                isLoading={registerParticipantMutation.isLoading}
+                isSuccess={registerParticipantMutation.isSuccess}
+                error={registerParticipantMutation.error}
+              />
             </li>
           </ul>
         </nav>
@@ -299,6 +290,37 @@ function EditParticipantModalContainer({
         success={isError}
         error={typeof error === "string" ? error : null}
         initialData={participant}
+      />
+    </Modal>
+  )
+}
+
+type RegisterParticipantModalContainerProps = {
+  onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
+  isLoading: boolean
+  isSuccess: boolean
+  error: unknown
+}
+
+function RegisterParticipantModalContainer({
+  onRegisterParticipant,
+  isLoading,
+  isSuccess,
+  error,
+}: RegisterParticipantModalContainerProps) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Modal open={open} onOpenChange={setOpen}>
+      <ModalTrigger asChild>
+        <Button>Novo Participante</Button>
+      </ModalTrigger>
+      <RegisterParticipantModal
+        onRegisterParticipant={onRegisterParticipant}
+        loading={isLoading}
+        success={isSuccess}
+        error={typeof error === "string" ? error : null}
+        open={open}
       />
     </Modal>
   )
