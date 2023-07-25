@@ -21,6 +21,7 @@ export type RegisterEventModalProps = {
   loading?: boolean
   success: boolean | null
   error: string | null
+  open: boolean
 }
 
 export function RegisterEventModal({
@@ -28,6 +29,7 @@ export function RegisterEventModal({
   loading,
   success,
   error,
+  open,
 }: RegisterEventModalProps) {
   const {
     register,
@@ -40,6 +42,12 @@ export function RegisterEventModal({
 
   const [internalSuccess, setInternalSuccess] = useState(success)
   const [internalError, setInternalError] = useState(error)
+
+  useEffect(() => {
+    if (open === false) {
+      handleBackToForm()
+    }
+  }, [open])
 
   useEffect(() => {
     setInternalSuccess(success)

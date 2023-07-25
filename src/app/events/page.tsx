@@ -1,7 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { RegisterEvent } from "@/shared/types"
 import {
   Button,
   Card,
@@ -12,7 +14,6 @@ import {
   RegisterEventModal,
 } from "@/components"
 import { getEvents, registerEvent } from "./data-events"
-import { RegisterEvent } from "@/shared/types"
 
 export default function Events() {
   const queryClient = useQueryClient()
@@ -39,25 +40,18 @@ export default function Events() {
     <div className="flex flex-col justify-between gap-4 font-sans text-neutral-900">
       <div className="flex items-center justify-between">
         <h1 className="text-title-sm font-bold text-neutral-900">Eventos</h1>
-        <Modal>
-          <ModalTrigger asChild>
-            <Button>Novo evento</Button>
-          </ModalTrigger>
-
-          <RegisterEventModal
-            onRegisterEvent={handleRegisterEvent}
-            loading={registerEventMutation.isLoading}
-            success={registerEventMutation.isSuccess}
-            error={
-              typeof registerEventMutation.error === "string"
-                ? registerEventMutation.error
-                : null
-            }
-          />
-        </Modal>
+        <RegisterEventModalContainer
+          onRegisterEvent={handleRegisterEvent}
+          isLoading={registerEventMutation.isLoading}
+          isSuccess={registerEventMutation.isSuccess}
+          error={registerEventMutation.error}
+        />
       </div>
       <div className="grid grid-cols-3 gap-2">
-        {events.length === 0 && <p>Nenhum evento cadastrado.</p>}
+        {eventsQuery.isLoading && <p>Carregando eventos...</p>}
+        {events.length === 0 && eventsQuery.isSuccess && (
+          <p>Nenhum evento cadastrado.</p>
+        )}
         {events.map((event) => (
           <Link href={`/events/${event.slug}`} key={event.id}>
             <Card>
@@ -70,5 +64,36 @@ export default function Events() {
         ))}
       </div>
     </div>
+  )
+}
+
+type RegisterEventModalContainerProps = {
+  onRegisterEvent: (data: RegisterEvent) => Promise<void>
+  isLoading: boolean
+  isSuccess: boolean
+  error: unknown
+}
+function RegisterEventModalContainer({
+  onRegisterEvent,
+  isLoading,
+  isSuccess,
+  error,
+}: RegisterEventModalContainerProps) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Modal open={open} onOpenChange={setOpen}>
+      <ModalTrigger asChild>
+        <Button>Novo evento</Button>
+      </ModalTrigger>
+
+      <RegisterEventModal
+        open={open}
+        onRegisterEvent={onRegisterEvent}
+        loading={isLoading}
+        success={isSuccess}
+        error={typeof error === "string" ? error : null}
+      />
+    </Modal>
   )
 }
