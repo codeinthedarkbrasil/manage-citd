@@ -1,9 +1,9 @@
 import "@/styles/globals.css"
+import { PropsWithChildren } from "react"
+import { sora } from "@/styles"
 import Image from "next/image"
 import { LayoutDashboard, Medal } from "lucide-react"
-import { PropsWithChildren } from "react"
 import { Sidebar, SidebarItem, SidebarLink, SidebarList } from "@/components"
-import { sora } from "@/styles"
 
 export const metadata = {
   title: "Code in the Dark",

@@ -42,6 +42,9 @@ export default function Participants({ params }: EventProps) {
     mutationFn: selectNewRandomPlayer,
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: ["participants", { event }],
+      })
+      queryClient.invalidateQueries({
         queryKey: ["selected-participants", { event }],
       })
     },

@@ -5,6 +5,8 @@ import {
   type ParticipantInGroup,
   type RegisterParticipant,
   EditParticipant,
+  CITDEvent,
+  eventSchema,
 } from "@/shared/types"
 
 export async function getParticipants(event: string): Promise<Participant[]> {
@@ -165,4 +167,13 @@ export async function removeParticipant({ id, event }: RemoveParticipantInput) {
   await fetch(`/api/events/${event}/participants/${id}/remove-participant`, {
     method: "DELETE",
   })
+}
+
+export async function getEvent(event: string): Promise<CITDEvent> {
+  const result = await fetch(`/api/events/${event}`)
+  if (!result.ok) {
+    throw new Error("Evento não encontrado")
+  }
+  const data = await result.json()
+  return eventSchema.parse(data)
 }

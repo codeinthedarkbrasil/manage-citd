@@ -21,6 +21,7 @@ import {
   registerParticipant,
   removeParticipant,
   editParticipant,
+  getEvent,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
 import { getRandomInteger } from "@/lib/get-random-integer"
@@ -53,6 +54,12 @@ export default function Event({ params }: EventProps) {
   const query = useQuery({
     queryKey: ["participants", { event }],
     queryFn: () => getParticipants(event),
+  })
+
+  const eventQuery = useQuery({
+    queryKey: ["event", { event }],
+    queryFn: () => getEvent(event),
+    retry: 0,
   })
 
   const generateGroupsMutation = useMutation({
@@ -174,18 +181,26 @@ export default function Event({ params }: EventProps) {
   }
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.form?.submit()
+    e.target.form?.requestSubmit()
   }
 
   const handleRemoveParticipant = (id: string) => {
     removeParticipantMutation.mutate({ id, event })
   }
 
+  if (eventQuery.isError) {
+    return router.push("/events")
+  }
+
+  if (eventQuery.isLoading) {
+    return <p>Carregando dados do evento...</p>
+  }
+
   return (
     <main className="pb-8 font-sans">
       <div className="mb-8 flex justify-between">
         <h1 className="text-[2.0rem] font-bold text-neutral-900">
-          Code in the Dark {event}
+          {eventQuery.data?.name}
         </h1>
         <nav>
           <ul className="flex gap-3">
