@@ -70,10 +70,16 @@ export default function Participants({ params }: EventProps) {
                       src="https://github.com/ghost.png"
                       alt={`? photo`}
                       lined={index !== round.participants.length - 1}
+                      hasWinner={round.participants.some((p) => p.winner)}
+                      winner={participant.winner}
                     />
                   </div>
 
-                  <ParticipantName>??</ParticipantName>
+                  <ParticipantName>
+                    {round.participants.some((p) => p.winner)
+                      ? participant.name
+                      : "??"}
+                  </ParticipantName>
                 </ParticipantItem>
               ))}
             </ParticipantsList>
