@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  FinalRound,
   ParticipantImage,
   ParticipantItem,
   ParticipantName,
@@ -11,6 +12,8 @@ import {
 } from "@/components"
 import { EventProps, Round } from "@/shared/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { RefreshCcw, ThumbsUp } from "lucide-react"
+
 import {
   getSelectedParticipants,
   selectNewRandomPlayer,
@@ -38,6 +41,9 @@ export default function Participants({ params }: EventProps) {
   const selectNewRandomPlayerMutation = useMutation({
     mutationFn: selectNewRandomPlayer,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["participants", { event }],
+      })
       queryClient.invalidateQueries({
         queryKey: ["selected-participants", { event }],
       })
@@ -106,35 +112,36 @@ export default function Participants({ params }: EventProps) {
             <ParticipantsList>
               {round.participants.map((participant, index) => (
                 <ParticipantItem key={participant.id}>
-                  <ParticipantImage
-                    src={`https://github.com/${participant.github}.png`}
-                    alt={`${participant.name} photo`}
-                    lined={index !== round.participants.length - 1}
-                  />
-                  <ParticipantName>{participant.name}</ParticipantName>
-
-                  <p className="my-1 text-primary-100">
+                  <div className="group relative h-[69px] w-[69px] cursor-pointer">
                     <button
-                      onClick={handleSetWinner({
-                        userId: participant.id,
-                        event,
-                        groupId: participant.groupId,
-                      })}
-                    >
-                      Definir vencedor
-                    </button>
-                  </p>
-                  <p className="text-primary-100">
-                    <button
+                      className="absolute -top-1 right-0 z-aboveAll hidden h-[28px] w-[28px] items-center justify-center rounded-full bg-primary-100 group-hover:flex"
                       onClick={handleSelectNewRandomPlayer({
                         userId: participant.id,
                         event,
                         groupId: participant.groupId,
                       })}
                     >
-                      Selecionar outro
+                      <RefreshCcw size={18} />
                     </button>
-                  </p>
+
+                    <ParticipantImage
+                      src={`https://github.com/${participant.github}.png`}
+                      alt={`${participant.name} photo`}
+                      lined={index !== round.participants.length - 1}
+                    />
+                    <button
+                      className="absolute -bottom-1 left-0 hidden h-[28px] w-[28px] items-center justify-center rounded-full bg-primary-100 transition-all group-hover:flex"
+                      onClick={handleSetWinner({
+                        userId: participant.id,
+                        event,
+                        groupId: participant.groupId,
+                      })}
+                    >
+                      <ThumbsUp size={18} />
+                    </button>
+                  </div>
+
+                  <ParticipantName>{participant.name}</ParticipantName>
                 </ParticipantItem>
               ))}
             </ParticipantsList>
@@ -142,23 +149,21 @@ export default function Participants({ params }: EventProps) {
         ))}
       </RoundsList>
 
-      <RoundsList>
-        <RoundItem>
-          <RoundTitle>Final</RoundTitle>
-          <ParticipantsList>
-            {finalRound.participants.map((participant, index) => (
-              <ParticipantItem key={participant.id}>
-                <ParticipantImage
-                  src={`https://github.com/${participant.github}.png`}
-                  alt={`${participant.name} photo`}
-                  lined={index !== finalRound.participants.length - 1}
-                />
-                <ParticipantName>{participant.name}</ParticipantName>
-              </ParticipantItem>
-            ))}
-          </ParticipantsList>
-        </RoundItem>
-      </RoundsList>
+      <FinalRound>
+        <RoundTitle>Final</RoundTitle>
+        <ParticipantsList>
+          {finalRound.participants.map((participant, index) => (
+            <ParticipantItem key={participant.id}>
+              <ParticipantImage
+                src={`https://github.com/${participant.github}.png`}
+                alt={`${participant.name} photo`}
+                lined={index !== finalRound.participants.length - 1}
+              />
+              <ParticipantName>{participant.name}</ParticipantName>
+            </ParticipantItem>
+          ))}
+        </ParticipantsList>
+      </FinalRound>
     </section>
   )
 }

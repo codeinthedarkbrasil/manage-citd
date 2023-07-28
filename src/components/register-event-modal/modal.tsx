@@ -5,8 +5,7 @@ import { Input } from "../input"
 import { ModalContent } from "../modal"
 import {
   User,
-  AtSign,
-  Github,
+  ArrowDownAZ,
   ArrowLeft,
   CheckCircle,
   XCircle,
@@ -15,30 +14,30 @@ import {
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { RegisterParticipant, registerParticipantSchema } from "@/shared/types"
+import { RegisterEvent, registerEventSchema } from "@/shared/types"
 
-export type RegisterParticipantModalProps = {
-  onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
+export type RegisterEventModalProps = {
+  onRegisterEvent: (data: RegisterEvent) => Promise<void>
   loading?: boolean
   success: boolean | null
   error: string | null
   open: boolean
 }
 
-export function RegisterParticipantModal({
-  onRegisterParticipant,
+export function RegisterEventModal({
+  onRegisterEvent,
   loading,
   success,
   error,
   open,
-}: RegisterParticipantModalProps) {
+}: RegisterEventModalProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<RegisterParticipant>({
-    resolver: zodResolver(registerParticipantSchema),
+  } = useForm<RegisterEvent>({
+    resolver: zodResolver(registerEventSchema),
   })
 
   const [internalSuccess, setInternalSuccess] = useState(success)
@@ -61,10 +60,8 @@ export function RegisterParticipantModal({
     }
   }, [success, reset])
 
-  const handleRegisterParticipant: SubmitHandler<RegisterParticipant> = async (
-    data,
-  ) => {
-    await onRegisterParticipant(data)
+  const handleRegisterEvent: SubmitHandler<RegisterEvent> = async (data) => {
+    await onRegisterEvent(data)
   }
 
   const handleBackToForm = () => {
@@ -109,29 +106,25 @@ export function RegisterParticipantModal({
         {!internalSuccess && !internalError && (
           <>
             <h2 className="font-sans text-[1.6rem] font-semibold text-neutral-900">
-              Novo Participante
+              Novo Evento
             </h2>
             <form
               className="mt-[24px] flex flex-col gap-3"
-              onSubmit={handleSubmit(handleRegisterParticipant)}
+              onSubmit={handleSubmit(handleRegisterEvent)}
             >
               <Input
-                placeholder="Nome"
+                placeholder="Nome do evento"
                 icon={<User className="h-[16px] w-[16px] text-neutral-500" />}
                 error={errors.name?.message}
                 {...register("name")}
               />
               <Input
-                placeholder="Email"
-                icon={<AtSign className="h-[16px] w-[16px] text-neutral-500" />}
-                error={errors.email?.message}
-                {...register("email")}
-              />
-              <Input
-                placeholder="Github"
-                icon={<Github className="h-[16px] w-[16px] text-neutral-500" />}
-                error={errors.github?.message}
-                {...register("github")}
+                placeholder="Slug (pode ser o ano do evento)"
+                icon={
+                  <ArrowDownAZ className="h-[16px] w-[16px] text-neutral-500" />
+                }
+                error={errors.slug?.message}
+                {...register("slug")}
               />
 
               <Button disabled={loading} loading={loading}>

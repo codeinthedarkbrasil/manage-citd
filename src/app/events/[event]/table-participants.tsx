@@ -1,5 +1,4 @@
-import Link from "next/link"
-import type { Participant } from "@/shared/types"
+import type { EditParticipant, Participant } from "@/shared/types"
 import {
   DebouncedCheckbox,
   Table,
@@ -9,18 +8,20 @@ import {
   TableHead,
   TableCell,
 } from "@/components"
-import { Trash2 as RemoveIcon, Edit as EditIcon } from "lucide-react"
+import { Trash2 as RemoveIcon } from "lucide-react"
 
 type TableBodyProps = {
-  event: string
   participants: Participant[]
   onCheckParticipant: (args: { id: string; checked: boolean }) => void
+  onRemoveParticipant: (id: string) => void
+  editParticipantModal: (data: EditParticipant) => React.ReactNode
 }
 
 export function TableParticipants({
-  event,
   participants,
   onCheckParticipant,
+  onRemoveParticipant,
+  editParticipantModal,
 }: TableBodyProps) {
   return (
     <Table>
@@ -37,10 +38,11 @@ export function TableParticipants({
         {participants.map((participant) => (
           <TableRow
             key={participant.id}
-            className={participant.gonnaPlay ? "bg-danger-100" : ""}
+            className={participant.gonnaPlay ? "bg-neutral-100" : ""}
           >
             <TableCell>
               <DebouncedCheckbox
+                disabled={participant.gonnaPlay}
                 defaultChecked={participant.wannaPlay}
                 onCheckedChange={(checked) => {
                   if (typeof checked === "boolean") {
@@ -61,14 +63,13 @@ export function TableParticipants({
             </TableCell>
             <TableCell>
               <div className="flex gap-1">
-                <button>
-                  <RemoveIcon className="h-2 w-2 text-danger-100" />
-                </button>
-                <Link
-                  href={`/events/${event}/participants/${participant.id}/edit`}
-                >
-                  <EditIcon className="h-2 w-2 text-neutral-500" />
-                </Link>
+                {participant.gonnaPlay === false && (
+                  <button onClick={() => onRemoveParticipant(participant.id)}>
+                    <RemoveIcon className="h-2 w-2 text-danger-100" />
+                  </button>
+                )}
+
+                {editParticipantModal(participant)}
               </div>
             </TableCell>
           </TableRow>

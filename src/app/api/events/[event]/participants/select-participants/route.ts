@@ -36,7 +36,7 @@ export async function GET(
 
     where: {
       play: {
-        every: {
+        some: {
           gonnaPlay: true,
         },
       },

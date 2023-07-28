@@ -1,7 +1,6 @@
-'use client';
-import { usePathname } from 'next/navigation'
-import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+import { PropsWithChildren } from "react"
 
 type SidebarLinkProps = PropsWithChildren<{ href: string }>
 
@@ -15,9 +14,7 @@ export const SidebarItem = ({ children }: PropsWithChildren) => (
   <li>{children}</li>
 )
 export const SidebarList = ({ children }: PropsWithChildren) => (
-  <ul className="mt-4 flex flex-col gap-3">
-    {children}
-  </ul>
+  <ul className="mt-4 flex flex-col gap-3">{children}</ul>
 )
 
 export const SidebarLink = ({ children, href }: SidebarLinkProps) => {
@@ -26,7 +23,10 @@ export const SidebarLink = ({ children, href }: SidebarLinkProps) => {
   const colorStyles = isActive ? "text-primary-100" : "text-neutral-300"
 
   return (
-    <Link href={href} className={`${colorStyles} transition-colors hover:text-primary-100`}>
+    <Link
+      href={href}
+      className={`${colorStyles} transition-colors hover:text-primary-100`}
+    >
       {children}
     </Link>
   )

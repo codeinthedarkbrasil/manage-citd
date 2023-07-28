@@ -1,27 +1,31 @@
 "use client"
 
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useCallback, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableParticipants } from "./table-participants"
 import {
   Button,
   Checkbox,
+  EditParticipantModal,
   Input,
   Modal,
   ModalTrigger,
   RegisterParticipantModal,
 } from "@/components"
-import { Filter as FilterIcon } from "lucide-react"
+import { Filter as FilterIcon, Edit as EditIcon } from "lucide-react"
 import {
   getParticipants,
   setSelectedParticipants,
   checkParticipant,
   registerParticipant,
+  removeParticipant,
+  editParticipant,
+  getEvent,
 } from "./participants/data-participants"
 import { upload } from "./participants/upload"
 import { getRandomInteger } from "@/lib/get-random-integer"
-import { Participant, RegisterParticipant } from "@/shared/types"
+import { EditParticipant, RegisterParticipant } from "@/shared/types"
 
 type EventProps = {
   params: {
@@ -52,6 +56,12 @@ export default function Event({ params }: EventProps) {
     queryFn: () => getParticipants(event),
   })
 
+  const eventQuery = useQuery({
+    queryKey: ["event", { event }],
+    queryFn: () => getEvent(event),
+    retry: 0,
+  })
+
   const generateGroupsMutation = useMutation({
     mutationFn: generateGroups,
     onSuccess: () => {
@@ -74,9 +84,49 @@ export default function Event({ params }: EventProps) {
     },
   })
 
+  const removeParticipantMutation = useMutation({
+    mutationFn: removeParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
+  })
+
+  const editParticipantMutation = useMutation({
+    mutationFn: editParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["participants", { event }] })
+    },
+  })
+
   const handleRegisterParticipant = async (data: RegisterParticipant) => {
     registerParticipantMutation.mutate({ data, event })
   }
+
+  const handleEditParticipant = useCallback(
+    async (data: EditParticipant) => {
+      console.log("edit participant:", data)
+      await editParticipantMutation.mutateAsync({ data, event })
+    },
+    [editParticipantMutation, event],
+  )
+
+  const editParticipantModal = useCallback(
+    (participant: EditParticipant) => (
+      <EditParticipantModalContainer
+        participant={participant}
+        onEditParticipant={handleEditParticipant}
+        error={editParticipantMutation.error}
+        isError={editParticipantMutation.isError}
+        isLoading={editParticipantMutation.isLoading}
+      />
+    ),
+    [
+      editParticipantMutation.error,
+      editParticipantMutation.isLoading,
+      editParticipantMutation.isError,
+      handleEditParticipant,
+    ],
+  )
 
   const handleCheckParticipant = ({
     id,
@@ -131,14 +181,26 @@ export default function Event({ params }: EventProps) {
   }
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.form?.submit()
+    e.target.form?.requestSubmit()
+  }
+
+  const handleRemoveParticipant = (id: string) => {
+    removeParticipantMutation.mutate({ id, event })
+  }
+
+  if (eventQuery.isError) {
+    return router.push("/events")
+  }
+
+  if (eventQuery.isLoading) {
+    return <p>Carregando dados do evento...</p>
   }
 
   return (
     <main className="pb-8 font-sans">
       <div className="mb-8 flex justify-between">
         <h1 className="text-[2.0rem] font-bold text-neutral-900">
-          Code in the Dark {event}
+          {eventQuery.data?.name}
         </h1>
         <nav>
           <ul className="flex gap-3">
@@ -155,21 +217,12 @@ export default function Event({ params }: EventProps) {
               <Button variant="file">Importar CSV</Button>
             </li>
             <li>
-              <Modal>
-                <ModalTrigger asChild>
-                  <Button>Novo Participante</Button>
-                </ModalTrigger>
-                <RegisterParticipantModal
-                  onRegisterParticipant={handleRegisterParticipant}
-                  loading={registerParticipantMutation.isLoading}
-                  success={registerParticipantMutation.isSuccess}
-                  error={
-                    typeof registerParticipantMutation.error === "string"
-                      ? registerParticipantMutation.error
-                      : null
-                  }
-                />
-              </Modal>
+              <RegisterParticipantModalContainer
+                onRegisterParticipant={handleRegisterParticipant}
+                isLoading={registerParticipantMutation.isLoading}
+                isSuccess={registerParticipantMutation.isSuccess}
+                error={registerParticipantMutation.error}
+              />
             </li>
           </ul>
         </nav>
@@ -211,10 +264,79 @@ export default function Event({ params }: EventProps) {
       </div>
 
       <TableParticipants
-        event={event}
         participants={filteredParticipants}
         onCheckParticipant={handleCheckParticipant}
+        onRemoveParticipant={handleRemoveParticipant}
+        editParticipantModal={editParticipantModal}
       />
     </main>
+  )
+}
+
+type EditParticipantModalContainerProps = {
+  participant: EditParticipant
+  onEditParticipant: (data: EditParticipant) => Promise<void>
+  isLoading: boolean
+  isError: boolean
+  error: unknown
+}
+function EditParticipantModalContainer({
+  participant,
+  onEditParticipant,
+  isLoading,
+  isError,
+  error,
+}: EditParticipantModalContainerProps) {
+  const [openEditModal, setOpenEditModal] = useState(false)
+
+  const handleEditParticipant = async (participant: EditParticipant) => {
+    await onEditParticipant(participant)
+    setOpenEditModal(false)
+  }
+
+  return (
+    <Modal open={openEditModal} onOpenChange={setOpenEditModal}>
+      <ModalTrigger>
+        <EditIcon className="h-2 w-2 text-neutral-500" />
+      </ModalTrigger>
+      <EditParticipantModal
+        onEditParticipant={handleEditParticipant}
+        loading={isLoading}
+        success={isError}
+        error={typeof error === "string" ? error : null}
+        initialData={participant}
+      />
+    </Modal>
+  )
+}
+
+type RegisterParticipantModalContainerProps = {
+  onRegisterParticipant: (data: RegisterParticipant) => Promise<void>
+  isLoading: boolean
+  isSuccess: boolean
+  error: unknown
+}
+
+function RegisterParticipantModalContainer({
+  onRegisterParticipant,
+  isLoading,
+  isSuccess,
+  error,
+}: RegisterParticipantModalContainerProps) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Modal open={open} onOpenChange={setOpen}>
+      <ModalTrigger asChild>
+        <Button>Novo Participante</Button>
+      </ModalTrigger>
+      <RegisterParticipantModal
+        onRegisterParticipant={onRegisterParticipant}
+        loading={isLoading}
+        success={isSuccess}
+        error={typeof error === "string" ? error : null}
+        open={open}
+      />
+    </Modal>
   )
 }

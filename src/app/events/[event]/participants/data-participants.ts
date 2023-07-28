@@ -4,6 +4,9 @@ import {
   type Participant,
   type ParticipantInGroup,
   type RegisterParticipant,
+  EditParticipant,
+  CITDEvent,
+  eventSchema,
 } from "@/shared/types"
 
 export async function getParticipants(event: string): Promise<Participant[]> {
@@ -91,6 +94,34 @@ export async function registerParticipant({
   return { data: dataOrError }
 }
 
+type EditParticipantInput = {
+  event: string
+  data: EditParticipant
+}
+
+export async function editParticipant({ event, data }: EditParticipantInput) {
+  const result = await fetch(
+    `/api/events/${event}/participants/edit-participant`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    },
+  )
+
+  const dataOrError = await result.json()
+
+  if (!result.ok) {
+    const { message } = dataOrError
+    // TODO: handle the error in the future
+    return Promise.reject(message)
+  }
+
+  return { data: dataOrError }
+}
+
 type SetWinnerInput = {
   userId: string
   event: string
@@ -126,4 +157,23 @@ export async function selectNewRandomPlayer({
       },
     },
   )
+}
+
+type RemoveParticipantInput = {
+  id: string
+  event: string
+}
+export async function removeParticipant({ id, event }: RemoveParticipantInput) {
+  await fetch(`/api/events/${event}/participants/${id}/remove-participant`, {
+    method: "DELETE",
+  })
+}
+
+export async function getEvent(event: string): Promise<CITDEvent> {
+  const result = await fetch(`/api/events/${event}`)
+  if (!result.ok) {
+    throw new Error("Evento não encontrado")
+  }
+  const data = await result.json()
+  return eventSchema.parse(data)
 }
