@@ -6,11 +6,9 @@ import {
   ParticipantItem,
   ParticipantName,
   ParticipantsList,
-  RoundItem,
   RoundTitle,
-  RoundsList,
 } from "@/components"
-import { EventProps, Round } from "@/shared/types"
+import { Round } from "@/shared/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { RefreshCcw, ThumbsUp } from "lucide-react"
 
@@ -18,10 +16,19 @@ import {
   getSelectedParticipants,
   selectNewRandomPlayer,
   setWinner,
-} from "./data-participants"
+} from "@/app/events/[event]/participants/data-participants"
 import Link from "next/link"
 
-export default function Participants({ params }: EventProps) {
+type ParticipantsInGroupProps = {
+  params: {
+    event: string
+    groupId: string
+  }
+}
+
+export default function ParticipantsInGroup({
+  params,
+}: ParticipantsInGroupProps) {
   const { event } = params
   const queryClient = useQueryClient()
 
@@ -75,6 +82,11 @@ export default function Participants({ params }: EventProps) {
     { participants: [] },
   )
 
+  const round =
+    params.groupId === "final" ? finalRound : rounds[+params.groupId - 1]
+
+  console.log({ round })
+
   type HandleSetWinnerInput = {
     userId: string
     event: string
@@ -101,21 +113,27 @@ export default function Participants({ params }: EventProps) {
   return (
     <section className="font-sans">
       <p className="text-body-xs leading-normal text-neutral-500 underline">
-        Code in The Dark {params.event}
+        <Link href={`/events/${event}/participants`}>
+          Code in The Dark {params.event}
+        </Link>
       </p>
-      <h2 className="mt-1 text-title-sm font-bold leading-normal text-neutral-900">
-        Gerenciar Chave
+      <h2 className="mb-16 mt-1 text-title-sm font-bold leading-normal text-neutral-900">
+        Grupo {params.groupId}
       </h2>
-      <RoundsList>
-        {rounds.map((round, index) => (
-          <RoundItem key={index}>
-            <Link href={`/events/${event}/participants/${index + 1}`}>
-              <RoundTitle>{index + 1}º Round</RoundTitle>
-            </Link>
-            <ParticipantsList>
-              {round.participants.map((participant, index) => (
-                <ParticipantItem key={participant.id}>
-                  <div className="group relative h-[69px] w-[69px] cursor-pointer">
+
+      <FinalRound size="big">
+        <ParticipantsList>
+          {round?.participants.map((participant, index) => (
+            <ParticipantItem key={participant.id}>
+              <div className="group relative h-[69px] w-[69px] cursor-pointer">
+                <ParticipantImage
+                  src={`https://github.com/${participant.github}.png`}
+                  alt={`${participant.name} photo`}
+                  lined={index !== round.participants.length - 1}
+                />
+
+                {params.groupId !== "final" && (
+                  <>
                     <button
                       className="absolute -top-1 right-0 z-aboveAll hidden h-[28px] w-[28px] items-center justify-center rounded-full bg-primary-100 group-hover:flex"
                       onClick={handleSelectNewRandomPlayer({
@@ -127,11 +145,6 @@ export default function Participants({ params }: EventProps) {
                       <RefreshCcw size={18} />
                     </button>
 
-                    <ParticipantImage
-                      src={`https://github.com/${participant.github}.png`}
-                      alt={`${participant.name} photo`}
-                      lined={index !== round.participants.length - 1}
-                    />
                     <button
                       className="absolute -bottom-1 left-0 hidden h-[28px] w-[28px] items-center justify-center rounded-full bg-primary-100 transition-all group-hover:flex"
                       onClick={handleSetWinner({
@@ -142,35 +155,15 @@ export default function Participants({ params }: EventProps) {
                     >
                       <ThumbsUp size={18} />
                     </button>
-                  </div>
+                  </>
+                )}
+              </div>
 
-                  <ParticipantName>{participant.name}</ParticipantName>
-                </ParticipantItem>
-              ))}
-            </ParticipantsList>
-          </RoundItem>
-        ))}
-      </RoundsList>
-
-      {finalRound.participants.length > 0 && (
-        <FinalRound>
-          <Link href={`/events/${event}/participants/final`}>
-            <RoundTitle>Final</RoundTitle>
-          </Link>
-          <ParticipantsList>
-            {finalRound.participants.map((participant, index) => (
-              <ParticipantItem key={participant.id}>
-                <ParticipantImage
-                  src={`https://github.com/${participant.github}.png`}
-                  alt={`${participant.name} photo`}
-                  lined={index !== finalRound.participants.length - 1}
-                />
-                <ParticipantName>{participant.name}</ParticipantName>
-              </ParticipantItem>
-            ))}
-          </ParticipantsList>
-        </FinalRound>
-      )}
+              <ParticipantName>{participant.name}</ParticipantName>
+            </ParticipantItem>
+          ))}
+        </ParticipantsList>
+      </FinalRound>
     </section>
   )
 }
