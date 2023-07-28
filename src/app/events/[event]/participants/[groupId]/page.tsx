@@ -6,7 +6,6 @@ import {
   ParticipantItem,
   ParticipantName,
   ParticipantsList,
-  RoundTitle,
 } from "@/components"
 import { Round } from "@/shared/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
@@ -130,6 +129,8 @@ export default function ParticipantsInGroup({
                   src={`https://github.com/${participant.github}.png`}
                   alt={`${participant.name} photo`}
                   lined={index !== round.participants.length - 1}
+                  hasWinner={round.participants.some((p) => p.winner)}
+                  winner={participant.winner}
                 />
 
                 {params.groupId !== "final" && (

@@ -30,6 +30,7 @@ async function main() {
         play: {
           create: {
             eventSlug: event.slug,
+            wannaPlay: true,
           },
         },
       },
