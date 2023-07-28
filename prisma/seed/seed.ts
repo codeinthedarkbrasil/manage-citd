@@ -22,7 +22,8 @@ async function main() {
   const promiseParticipants = participants.map((data) => {
     const rand = getRandomInteger(1)
 
-    const event = events[rand]
+    // const event = events[rand]
+    const event = events[1]
     return prisma.user.create({
       data: {
         ...data,

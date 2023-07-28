@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { RefreshCcw, ThumbsUp } from "lucide-react"
 
 type ParticipantImageProps = {
   src: string

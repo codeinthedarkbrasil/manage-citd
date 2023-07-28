@@ -2,6 +2,8 @@
 
 > Backoffice application for Code in the Dark ⚡
 
+**IMPORTANT: Node.js v20 is required to run this project.**
+
 ## Setup ⚙️
 
 1. Install the deps:
@@ -19,7 +21,7 @@ cp .env.example .env
 3. Run migrations to create the database:
 
 ```sh
-yarn prisma migrate dev
+yarn migrate
 ```
 
 4. Run seed to fill up the database:
