@@ -53,7 +53,6 @@ async function saveInDb({ csv, event }: SaveInDbInput) {
         play: {
           create: {
             eventSlug: event,
-            wannaPlay: true,
           },
         },
       },

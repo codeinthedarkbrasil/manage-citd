@@ -28,7 +28,6 @@ export async function POST(
       play: {
         create: {
           eventSlug: event,
-          wannaPlay: true,
         },
       },
     },
