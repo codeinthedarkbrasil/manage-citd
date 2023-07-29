@@ -67,7 +67,7 @@ export default function Participants({ params }: EventProps) {
                 <ParticipantItem key={participant.id}>
                   <div className="group relative h-[69px] w-[69px] cursor-pointer">
                     <ParticipantImage
-                      src="https://github.com/ghost.png"
+                      src="/ghost.jpeg"
                       alt={`? photo`}
                       lined={index !== round.participants.length - 1}
                       hasWinner={round.participants.some((p) => p.winner)}
@@ -96,7 +96,11 @@ export default function Participants({ params }: EventProps) {
             {finalRound.participants.map((participant, index) => (
               <ParticipantItem key={participant.id}>
                 <ParticipantImage
-                  src={`https://github.com/${participant.github}.png`}
+                  src={
+                    participant.github === "ghost"
+                      ? "/ghost.jpeg"
+                      : `https://github.com/${participant.github}.png`
+                  }
                   alt={`${participant.name} photo`}
                   lined={index !== finalRound.participants.length - 1}
                 />
