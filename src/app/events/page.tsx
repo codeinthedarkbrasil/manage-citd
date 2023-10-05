@@ -36,6 +36,26 @@ export default function Events() {
     registerEventMutation.mutate(data)
   }
 
+  if (eventsQuery.isLoading) {
+    return (
+      <main className="animate-pulse pb-8">
+        <div className="mb-4 flex justify-between">
+          <div className="h-[35px] w-[140px] rounded-[4px] bg-neutral-200" />
+
+          <div>
+            <div className="h-[45px] w-[130px] rounded-[4px] bg-neutral-200" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <div className="h-[87px] w-[300px] rounded-[8px] bg-neutral-200" />
+          <div className="h-[87px] w-[300px] rounded-[8px] bg-neutral-200" />
+          <div className="h-[87px] w-[300px] rounded-[8px] bg-neutral-200" />
+        </div>
+      </main>
+    )
+  }
+
   return (
     <div className="flex flex-col justify-between gap-4 font-sans text-neutral-900">
       <div className="flex items-center justify-between">
@@ -48,7 +68,6 @@ export default function Events() {
         />
       </div>
       <div className="grid grid-cols-3 gap-2">
-        {eventsQuery.isLoading && <p>Carregando eventos...</p>}
         {events.length === 0 && eventsQuery.isSuccess && (
           <p>Nenhum evento cadastrado.</p>
         )}

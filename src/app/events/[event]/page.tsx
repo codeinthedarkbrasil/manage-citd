@@ -193,7 +193,33 @@ export default function Event({ params }: EventProps) {
   }
 
   if (eventQuery.isLoading) {
-    return <p>Carregando dados do evento...</p>
+    return (
+      <main className="animate-pulse pb-8">
+        <div className="mb-8 flex justify-between">
+          <div className="h-[30px] w-[233px] rounded-[4px] bg-neutral-200" />
+          <nav>
+            <div className="flex gap-3">
+              <div className="group relative flex w-[247px] gap-2 overflow-hidden">
+                <div className="h-[40px] w-[150px] rounded-[4px] bg-neutral-200" />
+                <div className="h-[40px] w-[150px] rounded-[4px] bg-neutral-200" />
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div className="mb-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-[34px] w-[210px] rounded-[4px] bg-neutral-200" />
+            <div>
+              <div className="flex h-[34px] w-[210px] gap-1 rounded-[4px] bg-neutral-200" />
+            </div>
+          </div>
+          <div>
+            <div className="h-[34px] w-[210px] rounded-[4px] bg-neutral-200" />
+          </div>
+        </div>
+        <div className="min-h-screen min-w-full rounded-[4px] bg-neutral-200" />
+      </main>
+    )
   }
 
   return (
